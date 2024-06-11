@@ -13,6 +13,7 @@ export default class Todo {
     this.#priority = priority;
     this.#status = status;
     this.#projects = projects;
+    
   }
   //getters
   getTitle() {
