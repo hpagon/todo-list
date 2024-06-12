@@ -40,8 +40,8 @@ class DomGenerator {
     DomHandler.setProjectTabEvent(sidebarLabel);
     //add to dom
     this.#projectList.appendChild(sidebarLabel);
-    listViewTableHeader.append(nameHeader, dateHeader);
     banner.append(bannerHeader);
+    listViewTableHeader.append(nameHeader, dateHeader);
     itemsContainer.append(listViewTableHeader);
     projectContainer.append(banner, itemsContainer);
     //add project to project screen list in screen controller
