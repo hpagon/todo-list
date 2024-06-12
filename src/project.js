@@ -1,3 +1,5 @@
+import Todo from "./todo";
+
 export default class Project {
     #title;
     #items;
@@ -24,7 +26,8 @@ export default class Project {
     setView(newView) {
         this.#view = newView;
     }
-    addItem(newItem) {
+    addItem(title, description, dueDate, priority, status, projects) {
+        const newItem = new Todo(title, description, dueDate, priority, status, projects);
         this.#items.push(newItem);
     }
 }

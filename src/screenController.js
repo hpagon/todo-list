@@ -1,20 +1,25 @@
-export default class ScreenController {
+export { ScreenController as default, screenController };
+
+class ScreenController {
   #projects;
-  #projectContainerDiv;
+  #contentDiv;
   constructor() {
     this.#projects = {};
-    this.#projectContainerDiv = document.querySelector("#project-container");
+    this.#contentDiv = document.querySelector("#content");
   }
   //store project screen
   addProjectScreen(projectScreen, title) {
     this.#projects[title] = projectScreen;
   }
+  //change current project screen
   setProjectScreen(title) {
     //remove previous project container
-    if (document.querySelector("#items-container")) {
-      document.querySelector("#items-container").remove();
+    if (document.querySelector("#project-container") !== null) {
+        document.querySelector("#project-container").remove();
     }
     //add in new project container
-    this.#projectContainerDiv.appendChild(this.#projects[title]);
+    this.#contentDiv.appendChild(this.#projects[title]);
   }
 }
+
+const screenController = new ScreenController();

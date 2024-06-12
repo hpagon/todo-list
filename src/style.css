@@ -3,6 +3,10 @@
     padding: 0px;
 }
 
+body > div > div {
+    border: 1px solid lightgray
+}
+
 /* container styles */
 #container {
     display: grid;
@@ -19,7 +23,3 @@
 /* main content styles */
 
 /* - banner styles */
-
-#banner {
-    background-color: maroon;
-}
