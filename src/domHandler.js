@@ -7,6 +7,9 @@ class DomHandler {
   constructor() {
     this.#addButton = document.querySelector("#add-button");
     this.#addButton.addEventListener("click", this.addItemEvent);
+    document
+      .querySelector("dialog form input[type= 'submit']")
+      .addEventListener("click", this.addButtonEvent);
   }
   static setProjectTabEvent(element) {
     element.addEventListener("click", (e) => {
@@ -15,6 +18,9 @@ class DomHandler {
   }
   addItemEvent() {
     document.querySelector("dialog").showModal();
+  }
+  addButtonEvent() {
+    app.createItem();
   }
 }
 

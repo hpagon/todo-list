@@ -44,10 +44,18 @@ class DomGenerator {
     listViewTableHeader.append(nameHeader, dateHeader);
     itemsContainer.append(listViewTableHeader);
     projectContainer.append(banner, itemsContainer);
+    this.createProjectDialogOption(project.getTitle());
     //add project to project screen list in screen controller
     screenController.addProjectScreen(projectContainer, project.getTitle());
   }
   toggleProjectView(project) {}
+  createProjectDialogOption(title) {
+    const projectButton = document.createElement("button");
+    projectButton.setAttribute("type", "button");
+    projectButton.textContent = title;
+    document.querySelector("dialog form div").appendChild(projectButton);
+  }
+  createItem() {}
 }
 
 const domGenerator = new DomGenerator();

@@ -22,6 +22,9 @@ class ScreenController {
     this.#contentDiv.appendChild(this.#projects[title]);
     this.#currentProject = title;
   }
+  getCurrentProject() {
+    return this.#currentProject;
+  }
 }
 
 const screenController = new ScreenController();

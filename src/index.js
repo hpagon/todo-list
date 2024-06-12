@@ -5,7 +5,7 @@ import ScreenController, { screenController } from "./screenController";
 import Project from "./project";
 
 class App {
-  #projects = [];
+  #projects = {};
   constructor() {
     this.createProject("All");
     this.createProject("Today");
@@ -15,12 +15,20 @@ class App {
   createProject(title) {
     const newProject = new Project(title);
     //add project to application project array
-    this.#projects.push(newProject);
+    this.#projects[title] = newProject;
     //create dom for project
     domGenerator.createProject(newProject);
   }
   createItem() {
-    console.log("item created");
+    this.#projects[screenController.getCurrentProject()].addItem(
+      "New Item",
+      "",
+      "",
+      "Low",
+      "Not Started",
+      ["All"]
+    );
+    console.log(this.#projects[screenController.getCurrentProject()]);
   }
 }
 
