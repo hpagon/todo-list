@@ -3,6 +3,7 @@ import DomHandler from "./domHandler";
 import DomGenerator, { domGenerator } from "./domGenerator";
 import ScreenController, { screenController } from "./screenController";
 import Project from "./project";
+import Todo from "./todo";
 
 class App {
   #projects = {};
@@ -19,16 +20,19 @@ class App {
     //create dom for project
     domGenerator.createProject(newProject);
   }
-  createItem() {
-    this.#projects[screenController.getCurrentProject()].addItem(
-      "New Item",
-      "",
-      "",
-      "Low",
-      "Not Started",
-      ["All"]
+  createItem(name, description, date, priority, status, projects) {
+    const newTodo = new Todo(
+      name,
+      description,
+      date,
+      priority,
+      status,
+      projects
     );
-    console.log(this.#projects[screenController.getCurrentProject()]);
+    this.#projects["All"].addTodo(newTodo);
+    console.log(this.#projects["All"]);
+    domGenerator.createItem(newTodo, "All");
+    console.log("here?");
   }
 }
 

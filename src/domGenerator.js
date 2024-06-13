@@ -6,9 +6,11 @@ class DomGenerator {
   #projectList;
   #content = document.querySelector("#content");
   #project = document.querySelector("#project-container");
+  #projectContentList;
 
   constructor() {
     this.#projectList = document.querySelector("#projects");
+    this.#projectContentList = [];
   }
   //creates dom elements for projects
   createProject(project) {
@@ -21,6 +23,7 @@ class DomGenerator {
     const listViewTableHeader = document.createElement("div");
     const nameHeader = document.createElement("p");
     const dateHeader = document.createElement("p");
+    const itemListContainer = document.createElement("div");
     //add classes/ids
     projectContainer.id = "project-container";
     itemsContainer.id = "items-container";
@@ -39,23 +42,53 @@ class DomGenerator {
     //add event listeners
     DomHandler.setProjectTabEvent(sidebarLabel);
     //add to dom
-    this.#projectList.appendChild(sidebarLabel);
+    if ((project.getTitle() === "All", "Today")) {
+      document.querySelector("#default-project-list").appendChild(sidebarLabel);
+    } else {
+      this.#projectList.appendChild(sidebarLabel);
+    }
     banner.append(bannerHeader);
     listViewTableHeader.append(nameHeader, dateHeader);
-    itemsContainer.append(listViewTableHeader);
+    itemsContainer.append(listViewTableHeader, itemListContainer);
     projectContainer.append(banner, itemsContainer);
+    //add content to local div storage array
+    this.#projectContentList.push([projectContainer, sidebarLabel]);
+    //create project tag in dialog
     this.createProjectDialogOption(project.getTitle());
     //add project to project screen list in screen controller
     screenController.addProjectScreen(projectContainer, project.getTitle());
+    console.log(this.#projectContentList);
   }
   toggleProjectView(project) {}
   createProjectDialogOption(title) {
-    const projectButton = document.createElement("button");
-    projectButton.setAttribute("type", "button");
-    projectButton.textContent = title;
-    document.querySelector("dialog form div").appendChild(projectButton);
+    if (title === "All" || title === "Today") return;
+    const projectOption = document.createElement("option");
+    projectOption.setAttribute("value", title);
+    projectOption.textContent = title;
+    document.querySelector("#project-select").appendChild(projectOption);
+    this.#projectContentList[this.#projectContentList.length - 1].push(
+      projectOption
+    );
   }
-  createItem() {}
+  createItem(todo, project) {
+    const length = this.#projectContentList.length;
+    for (let i = 0; i < length; i++) {
+      if (this.#projectContentList[i][1].textContent === project) {
+        //create elements
+        const todoDiv = document.createElement("div");
+        const completeButton = document.createElement("button");
+        const todoName = document.createElement("p");
+        //add content
+        todoName.textContent = todo.getTitle();
+        //insert elements in place
+        todoDiv.append(completeButton, todoName);
+        this.#projectContentList[i][0].children[1].children[1].appendChild(
+          todoDiv
+        );
+        console.log("worked?");
+      }
+    }
+  }
 }
 
 const domGenerator = new DomGenerator();

@@ -4,15 +4,15 @@ export default class Todo {
   #dueDate;
   #priority;
   #status;
-  #projects;
+  #project;
   
-  constructor(title, description, dueDate, priority, status, projects) {
+  constructor(title, description, dueDate, priority, status, project) {
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
     this.#priority = priority;
     this.#status = status;
-    this.#projects = projects;
+    this.#project = project;
     
   }
   //getters
@@ -31,8 +31,8 @@ export default class Todo {
   getStatus() {
     return this.#status;
   }
-  getProjects() {
-    return this.#projects;
+  getProject() {
+    return this.#project;
   }
   //setters
   setTitle(newTitle) {
@@ -50,7 +50,7 @@ export default class Todo {
   setStatus(newStatus) {
     this.#status = newStatus;
   }
-  setProjects(newProjects) {
-    this.#projects = newProjects;
+  setProjects(newProject) {
+    this.#project = newProject;
   }
 }

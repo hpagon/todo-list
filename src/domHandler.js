@@ -19,8 +19,15 @@ class DomHandler {
   addItemEvent() {
     document.querySelector("dialog").showModal();
   }
+  //extract data from dialog form and notify observers
   addButtonEvent() {
-    app.createItem();
+    const name = "New Item";
+    const description = "";
+    const date = "";
+    const priority = "Low";
+    const status = "Not Started";
+    const project = "";
+    app.createItem(name, description, date, priority, status, project);
   }
 }
 

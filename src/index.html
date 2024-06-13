@@ -9,6 +9,7 @@
     <div id="container">
       <div id="header">Todo</div>
       <div id="sidebar">
+        <ul id="default-project-list"></ul>
         <h3>Projects</h3>
         <ul id="projects"></ul>
       </div>
@@ -16,25 +17,28 @@
     </div>
     <dialog>
       <form method="dialog">
-        <input type="text" name="title" placeholder="Name of todo...">
-        <input type="text" name="description" placeholder="Description of the todo...">
-        <input type="date" name="date" id="">
+        <input type="text" name="title" placeholder="Name of todo..." />
+        <input
+          type="text"
+          name="description"
+          placeholder="Description of the todo..."
+        />
+        <input type="date" name="date" id="" />
         <label for="priority">Priority</label>
-        <select name="priority" id="priority">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+        <select name="priority" id="priority-select">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
         </select>
         <label for="status">Status</label>
-        <select name="status" id="status">
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
+        <select name="status" id="status-select">
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
         </select>
-        <div>
-            Projects:
-        </div>
-        <input type="submit" value="Add">
+        <label for="project">Project:</label>
+        <select name="project" id="project-select"></select>
+        <input type="submit" value="Add" />
       </form>
     </dialog>
     <button id="add-button">+</button>

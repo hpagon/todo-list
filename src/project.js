@@ -26,8 +26,7 @@ export default class Project {
     setView(newView) {
         this.#view = newView;
     }
-    addItem(title, description, dueDate, priority, status, projects) {
-        const newItem = new Todo(title, description, dueDate, priority, status, projects);
-        this.#items.push(newItem);
+    addTodo(newTodo) {
+        this.#items.push(newTodo);
     }
 }
