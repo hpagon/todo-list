@@ -42,7 +42,7 @@ class DomGenerator {
     //add event listeners
     DomHandler.setProjectTabEvent(sidebarLabel);
     //add to dom
-    if ((project.getTitle() === "All", "Today")) {
+    if (project.getTitle() === "All" || project.getTitle() === "Today") {
       document.querySelector("#default-project-list").appendChild(sidebarLabel);
     } else {
       this.#projectList.appendChild(sidebarLabel);

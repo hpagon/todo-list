@@ -25,6 +25,9 @@ class ScreenController {
   getCurrentProject() {
     return this.#currentProject;
   }
+  showModal(modalNum) {
+    document.querySelector(`dialog:nth-child(${modalNum + 1})`).showModal();
+  }
 }
 
 const screenController = new ScreenController();

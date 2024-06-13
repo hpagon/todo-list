@@ -32,7 +32,6 @@ class App {
     this.#projects["All"].addTodo(newTodo);
     console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
-    console.log("here?");
   }
 }
 
