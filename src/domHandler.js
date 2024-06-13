@@ -11,18 +11,14 @@ class DomHandler {
     this.#addTodoForm = document.querySelector("#add-todo-form");
     this.#addProjectForm = document.querySelector("#add-project-form");
     this.#addButton.addEventListener("click", this.addItemEvent);
-    document
-      .querySelector("dialog form input[type= 'submit']")
-      .addEventListener("click", this.addButtonEvent);
+    this.#addTodoForm.addEventListener("submit", this.addButtonEvent);
     document
       .querySelector("#add-project-button")
       .addEventListener("click", this.showAddProjectEvent);
-    document
-      .querySelector('dialog form input[type="submit"]:nth-child(3)')
-      .addEventListener("click", () => {
-        const name = this.#addProjectForm.children[1].value;
-        this.addProjectFormButtonEvent(name);
-      });
+    this.#addProjectForm.addEventListener("submit", () => {
+      const name = this.#addProjectForm.children[1].value;
+      this.addProjectFormButtonEvent(name);
+    });
   }
   static setProjectTabEvent(element) {
     element.addEventListener("click", (e) => {
@@ -34,11 +30,11 @@ class DomHandler {
   }
   //extract data from dialog form and notify observers
   addButtonEvent() {
-    const name = "New Item";
-    const description = "";
-    const date = "";
-    const priority = "Low";
-    const status = "Not Started";
+    const name = document.querySelector("#add-todo-form").children[0].value;
+    const description = document.querySelector("#add-todo-form").children[1].value;
+    const date = document.querySelector("#add-todo-form").children[2].value;
+    const priority = document.querySelector("#add-todo-form").children[4].value;
+    const status = document.querySelector("#add-todo-form").children[6].value;
     const project = document.querySelector("#project-select").value;
     app.createItem(name, description, date, priority, status, project);
   }
