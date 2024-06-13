@@ -4,9 +4,11 @@ export { DomHandler as default, domHandler };
 
 class DomHandler {
   #addButton;
+  #addTodoForm;
   #addProjectForm;
   constructor() {
     this.#addButton = document.querySelector("#add-button");
+    this.#addTodoForm = document.querySelector("#add-todo-form");
     this.#addProjectForm = document.querySelector("#add-project-form");
     this.#addButton.addEventListener("click", this.addItemEvent);
     document
@@ -37,7 +39,7 @@ class DomHandler {
     const date = "";
     const priority = "Low";
     const status = "Not Started";
-    const project = "";
+    const project = document.querySelector("#project-select").value;
     app.createItem(name, description, date, priority, status, project);
   }
   showAddProjectEvent() {

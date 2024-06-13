@@ -20,18 +20,23 @@ class App {
     //create dom for project
     domGenerator.createProject(newProject);
   }
-  createItem(name, description, date, priority, status, projects) {
+  createItem(name, description, date, priority, status, project) {
     const newTodo = new Todo(
       name,
       description,
       date,
       priority,
       status,
-      projects
+      project
     );
     this.#projects["All"].addTodo(newTodo);
     console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
+    //if project was assigned add todo to said project
+    if (project !== "") {
+      this.#projects[project].addTodo(newTodo);
+      domGenerator.createItem(newTodo, project);
+    }
   }
 }
 
