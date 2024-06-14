@@ -28,6 +28,7 @@ class DomGenerator {
     projectContainer.id = "project-container";
     itemsContainer.id = "items-container";
     banner.id = "banner";
+    itemListContainer.id = "item-list";
     //add content
     sidebarLabel.textContent = project.getTitle();
     bannerHeader.textContent = project.getTitle();
@@ -85,7 +86,6 @@ class DomGenerator {
         this.#projectContentList[i][0].children[1].children[1].appendChild(
           todoDiv
         );
-        console.log("worked?");
       }
     }
   }
