@@ -1,6 +1,26 @@
+@font-face {
+  font-family: "Roboto";
+  src: 
+    url("./Roboto-Regular.ttf") format("truetype"),
+    url("./Roboto-Black.ttf") format("truetype"),
+    url("./Roboto-BlackItalic.ttf") format("truetype"),
+    url("./Roboto-Bold.ttf") format("truetype"),
+    url("./Roboto-BoldItalic.ttf") format("truetype"),
+    url("./Roboto-Italic.ttf") format("truetype"),
+    url("./Roboto-Light.ttf") format("truetype"),
+    url("./Roboto-LightItalic.ttf") format("truetype"),
+    url("./Roboto-Medium.ttf") format("truetype"),
+    url("./Roboto-MediumItalic.ttf") format("truetype"),
+    url("./Roboto-Thin.ttf") format("truetype"),
+    url("./Roboto-ThinItalic.ttf") format("truetype");
+  /* font-weight: 600; */
+  font-style: normal;
+}
+
 :root {
   --background-color-one: #f8f9fa;
   --background-color-three: #dee2e6;
+  font-family: "Roboto";
 }
 
 * {
@@ -62,10 +82,22 @@ body > div > div {
 #list-header {
   background-color: rgba(0, 0, 0, 0.8);
   width: min(80%, 700px);
-  padding: 0px 15px;
+  padding: 10px 15px;
   margin: 10px 0px;
   border-radius: 5px;
   color: var(--background-color-one);
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+#list-header div {
+  display: flex;
+  padding: 0 15px;
+}
+
+#list-header div p {
+  margin-right: 10px;
 }
 
 #item-list {
@@ -93,12 +125,15 @@ body > div > div {
 }
 
 #item-list div div div {
-  border: 1px solid black;
+  color: var(--background-color-one);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px black;
   padding: 5px;
 }
 
 #item-list div div * {
   margin-right: 10px;
+  font-weight: 500;
 }
 
 #item-list div button {
@@ -109,8 +144,9 @@ body > div > div {
   outline: none;
   border: 1px solid black;
 }
+/* priority styles */
 
-#item-list div div .low-priority {
+/* #item-list div div .low-priority {
   background: none;
 }
 
@@ -120,7 +156,7 @@ body > div > div {
 
 #item-list div div .high-priority {
   background-color: red;
-}
+} */
 
 /* status styles */
 #item-list .not-started div button {
@@ -132,12 +168,16 @@ body > div > div {
 }
 
 #item-list .complete div button {
-  background-color: blue;
+  /* background-color: #42ceeb; */
 }
 
 #item-list .complete div p {
   text-decoration: line-through;
 }
+
+/* #item-list .complete div div:nth-child(2) {
+  background-color: blue;
+} */
 
 /* - banner styles */
 #banner {

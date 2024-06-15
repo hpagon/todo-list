@@ -21,8 +21,11 @@ class DomGenerator {
     const bannerHeader = document.createElement("h2");
     const itemsContainer = document.createElement("div");
     const listViewTableHeader = document.createElement("div");
+    const tableHeaderLeftDiv = document.createElement("div");
+    const tableHeaderRightDiv = document.createElement("div");
     const nameHeader = document.createElement("p");
-    const dateHeader = document.createElement("p");
+    const priorityHeader = document.createElement("p");
+    const statusHeader = document.createElement("p");
     const itemListContainer = document.createElement("div");
     //add classes/ids
     projectContainer.id = "project-container";
@@ -34,7 +37,8 @@ class DomGenerator {
     sidebarLabel.textContent = project.getTitle();
     bannerHeader.textContent = project.getTitle();
     nameHeader.textContent = "Name";
-    dateHeader.textContent = "Date";
+    priorityHeader.textContent = "Priority";
+    statusHeader.textContent = "Status";
     //add styles
     banner.style.backgroundColor = `rgb(${Math.floor(
       Math.random() * 256
@@ -50,7 +54,9 @@ class DomGenerator {
       this.#projectList.appendChild(sidebarLabel);
     }
     banner.append(bannerHeader);
-    listViewTableHeader.append(nameHeader, dateHeader);
+    tableHeaderLeftDiv.append(nameHeader);
+    tableHeaderRightDiv.append(priorityHeader, statusHeader)
+    listViewTableHeader.append(tableHeaderLeftDiv, tableHeaderRightDiv);
     itemsContainer.append(listViewTableHeader, itemListContainer);
     projectContainer.append(banner, itemsContainer);
     //add content to local div storage array
