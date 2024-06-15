@@ -1,5 +1,5 @@
 import { screenController } from "./screenController";
-import DomHandler from "./domHandler";
+import DomHandler, { domHandler } from "./domHandler";
 export { DomGenerator as default, domGenerator };
 
 class DomGenerator {
@@ -26,6 +26,7 @@ class DomGenerator {
     const itemListContainer = document.createElement("div");
     //add classes/ids
     projectContainer.id = "project-container";
+    listViewTableHeader.id = "list-header";
     itemsContainer.id = "items-container";
     banner.id = "banner";
     itemListContainer.id = "item-list";
@@ -79,15 +80,72 @@ class DomGenerator {
         const todoDiv = document.createElement("div");
         const completeButton = document.createElement("button");
         const todoName = document.createElement("p");
+        const priority = document.createElement("div");
+        const status = document.createElement("div");
+        const tagContainer = document.createElement("div");
+        const leftContainer = document.createElement("div");
         //add content
         todoName.textContent = todo.getTitle();
+        priority.textContent = todo.getPriority();
+        status.textContent = todo.getStatus();
+        //add class
+        this.setPriorityClass(priority);
+        //add events
+        DomHandler.setCompleteButtonEvent(completeButton, todo);
         //insert elements in place
-        todoDiv.append(completeButton, todoName);
+        leftContainer.append(completeButton, todoName);
+        tagContainer.append(priority, status);
+        todoDiv.append(leftContainer, tagContainer);
+        //add to correct project container
         this.#projectContentList[i][0].children[1].children[1].appendChild(
           todoDiv
         );
+        //trigger events for intialization
+        this.setStatusStyles(todoDiv);
       }
     }
+  }
+  setPriorityClass(priority) {
+    switch (priority.textContent) {
+      case "Low":
+        priority.classList.add("low-priority");
+        break;
+      case "Medium":
+        priority.classList.add("medium-priority");
+        break;
+      case "High":
+        priority.classList.add("high-priority");
+        break;
+    }
+  }
+  setStatusStyles(todoDiv) {
+    todoDiv.classList.remove("not-started", "in-progress", "complete");
+    switch (todoDiv.children[1].children[1].textContent) {
+      case "Not Started":
+        todoDiv.classList.add("not-started");
+        break;
+      case "In Progress":
+        todoDiv.classList.add("in-progress");
+        break;
+      case "Complete":
+        todoDiv.classList.add("complete");
+        break;
+    }
+  }
+  completeButtonClickEvent(button, todo) {
+    if (
+      todo.getStatus() === "Not Started" ||
+      todo.getStatus() === "In Progress"
+    ) {
+      todo.setStatus("Complete");
+      button.parentElement.parentElement.children[1].children[1].textContent =
+        "Complete";
+    } else {
+      todo.setStatus("Not Started");
+      button.parentElement.parentElement.children[1].children[1].textContent =
+        "Not Started";
+    }
+    this.setStatusStyles(button.parentElement.parentElement);
   }
 }
 

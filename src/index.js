@@ -12,6 +12,23 @@ class App {
     this.createProject("Today");
     //set initial screen to all project
     screenController.setProjectScreen("All");
+    this.createItem(
+      "Welcome to your todo...",
+      "",
+      "",
+      "Low",
+      "Not Started",
+      "All"
+    );
+    this.createItem(
+      "The home for all your todo's.",
+      "",
+      "",
+      "Medium",
+      "In Progress",
+      ""
+    );
+    this.createItem("Try it out for yourself!", "", "", "High", "Complete", "");
   }
   createProject(title) {
     const newProject = new Project(title);
@@ -33,7 +50,7 @@ class App {
     console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
     //if project was assigned add todo to said project
-    if (project !== "") {
+    if (project !== "All" && project !== "") {
       this.#projects[project].addTodo(newTodo);
       domGenerator.createItem(newTodo, project);
     }

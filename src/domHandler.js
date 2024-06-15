@@ -1,5 +1,6 @@
 import { screenController } from "./screenController";
 import { app } from "./index.js";
+import { domGenerator } from "./domGenerator.js";
 export { DomHandler as default, domHandler };
 
 class DomHandler {
@@ -43,6 +44,11 @@ class DomHandler {
   }
   addProjectFormButtonEvent(name) {
     app.createProject(name);
+  }
+  static setCompleteButtonEvent(button, todo) {
+    button.addEventListener('click', () => {
+        domGenerator.completeButtonClickEvent(button, todo);
+    })
   }
 }
 

@@ -1,105 +1,172 @@
 :root {
-    --background-color-one: #F8F9FA;
-    --background-color-three: #DEE2E6;
+  --background-color-one: #f8f9fa;
+  --background-color-three: #dee2e6;
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 body > div > div {
-    border: 1px solid lightgray
+  border: 1px solid lightgray;
 }
 
 /* container styles */
 #container {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 35px 1fr;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 35px 1fr;
 }
 
 /* header styles */
 #header {
-    height: 35px;
-    grid-column: 1 / 3;
-    /* background-color: var(--background-color-one); */
+  height: 35px;
+  grid-column: 1 / 3;
+  /* background-color: var(--background-color-one); */
 }
 
 /* sidebar styles */
 #sidebar {
-    background-color: var(--background-color-one);
+  background-color: var(--background-color-one);
 }
 
 #sidebar div {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #sidebar div button {
-    height: 20px;
-    width: 20px;
-    border: none;
-    background: none;
-    outline: none;
-    border-radius: 50%;
-    font-size: 18px;
-    /* font-weight: 600; */
+  height: 20px;
+  width: 20px;
+  border: none;
+  background: none;
+  outline: none;
+  border-radius: 50%;
+  font-size: 18px;
+  /* font-weight: 600; */
 }
 
 /* main content styles */
 #project-container {
-    height: 100%;
+  height: 100%;
 }
 
 #items-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#list-header {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: min(80%, 700px);
+  padding: 0px 15px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  color: var(--background-color-one);
 }
 
 #item-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
 }
 
 #item-list div {
-    width: 100%;
-    margin: 10px 0px;
-    background-color: var(--background-color-three);
+  height: 60px;
+  width: min(100%, 700px);
+  margin: 10px 0px;
+  background-color: var(--background-color-three);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+#item-list div div {
+  width: max-content;
+  height: 15px;
+}
+
+#item-list div div div {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#item-list div div * {
+  margin-right: 10px;
+}
+
+#item-list div button {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: none;
+  outline: none;
+  border: 1px solid black;
+}
+
+#item-list div div .low-priority {
+  background: none;
+}
+
+#item-list div div .medium-priority {
+  background-color: yellow;
+}
+
+#item-list div div .high-priority {
+  background-color: red;
+}
+
+/* status styles */
+#item-list .not-started div button {
+  background: none;
+}
+
+#item-list .not-started div p {
+  text-decoration: none;
+}
+
+#item-list .complete div button {
+  background-color: blue;
+}
+
+#item-list .complete div p {
+  text-decoration: line-through;
 }
 
 /* - banner styles */
 #banner {
-    height: 20%;
-    display: flex;
-    align-items: center;
+  height: 20%;
+  display: flex;
+  align-items: center;
 }
 
 #banner h2 {
-    font-size: 45px;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: max-content;
-    padding: 25px;
-    margin-left: 25px;
-    border-radius: 5px;
-    color: var(--background-color-one);
+  font-size: 45px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: max-content;
+  padding: 25px;
+  margin-left: 25px;
+  border-radius: 5px;
+  color: var(--background-color-one);
 }
 
 #add-button {
-    position: fixed;
-    left: 95%;
-    bottom: 5%;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: none;
-    font-size: 45px;
-    outline: none;
-    background-color: var(--background-color-three);
+  position: fixed;
+  left: 95%;
+  bottom: 5%;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  font-size: 45px;
+  outline: none;
+  background-color: var(--background-color-three);
 }
 
 /* rgb(199, 167, 198) */
