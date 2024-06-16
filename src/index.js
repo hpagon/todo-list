@@ -14,7 +14,7 @@ class App {
     screenController.setProjectScreen("All");
     this.createItem(
       "Welcome to your todo...",
-      "",
+      "Placeholder Text",
       "",
       "Low",
       "Not Started",
@@ -22,13 +22,13 @@ class App {
     );
     this.createItem(
       "The home for all your todo's.",
-      "",
+      "Placeholder Text",
       "",
       "Medium",
       "In Progress",
       ""
     );
-    this.createItem("Try it out for yourself!", "", "", "High", "Complete", "");
+    this.createItem("Try it out for yourself!", "Placeholder Text", "", "High", "Complete", "");
   }
   createProject(title) {
     const newProject = new Project(title);

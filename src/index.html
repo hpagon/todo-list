@@ -20,12 +20,18 @@
     </div>
     <dialog>
       <form method="dialog" id="add-todo-form">
-        <input type="text" name="title" placeholder="Name of todo..." required/>
+        <input
+          type="text"
+          name="title"
+          placeholder="Name of todo..."
+          required
+        />
         <input
           type="text"
           name="description"
           placeholder="Description of the todo..."
         />
+        <label for="date">Date</label>
         <input type="date" name="date" id="date" />
         <label for="priority">Priority</label>
         <select name="priority" id="priority-select">
@@ -41,7 +47,7 @@
         </select>
         <label for="project">Project:</label>
         <select name="project" id="project-select">
-            <option value=""></option>
+          <option value=""></option>
         </select>
         <input type="submit" value="Add" />
       </form>
@@ -49,8 +55,33 @@
     <dialog>
       <form method="dialog" id="add-project-form">
         <label for="projectName">Name</label>
-        <input type="text" id="projectName" name="name" required/>
+        <input type="text" id="projectName" name="name" required />
         <input type="submit" value="Add" />
+      </form>
+    </dialog>
+    <dialog>
+      <form method="dialog" id="edit-todo-form">
+        <input type="text" name="title" required />
+        <input type="text" name="description" />
+        <label for="date">Date</label>
+        <input type="date" name="date" id="edit-date" />
+        <label for="priority">Priority</label>
+        <select name="priority" id="priority-select">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <label for="status">Status</label>
+        <select name="status" id="status-select">
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Complete</option>
+        </select>
+        <label for="project">Project:</label>
+        <select name="project" id="project-select">
+          <option value=""></option>
+        </select>
+        <input type="submit" value="Save" />
       </form>
     </dialog>
     <button id="add-button">+</button>

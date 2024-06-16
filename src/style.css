@@ -1,7 +1,6 @@
 @font-face {
   font-family: "Roboto";
-  src: 
-    url("./Roboto-Regular.ttf") format("truetype"),
+  src: url("./Roboto-Regular.ttf") format("truetype"),
     url("./Roboto-Black.ttf") format("truetype"),
     url("./Roboto-BlackItalic.ttf") format("truetype"),
     url("./Roboto-Bold.ttf") format("truetype"),
@@ -97,7 +96,7 @@ body > div > div {
 }
 
 #list-header div p {
-  margin-right: 10px;
+  margin: 0px 20px;
 }
 
 #item-list {
@@ -167,8 +166,16 @@ body > div > div {
   text-decoration: none;
 }
 
-#item-list .complete div button {
-  /* background-color: #42ceeb; */
+#item-list .in-progress div button::after {
+  content: "---";
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#item-list .complete div button::after {
+  content: "✓";
+  font-size: 18px;
+  font-weight: 600;
 }
 
 #item-list .complete div p {

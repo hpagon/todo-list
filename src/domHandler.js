@@ -32,10 +32,11 @@ class DomHandler {
   //extract data from dialog form and notify observers
   addButtonEvent() {
     const name = document.querySelector("#add-todo-form").children[0].value;
-    const description = document.querySelector("#add-todo-form").children[1].value;
-    const date = document.querySelector("#add-todo-form").children[2].value;
-    const priority = document.querySelector("#add-todo-form").children[4].value;
-    const status = document.querySelector("#add-todo-form").children[6].value;
+    const description =
+      document.querySelector("#add-todo-form").children[1].value;
+    const date = document.querySelector("#add-todo-form").children[3].value;
+    const priority = document.querySelector("#add-todo-form").children[5].value;
+    const status = document.querySelector("#add-todo-form").children[7].value;
     const project = document.querySelector("#project-select").value;
     app.createItem(name, description, date, priority, status, project);
   }
@@ -46,9 +47,15 @@ class DomHandler {
     app.createProject(name);
   }
   static setCompleteButtonEvent(button, todo) {
-    button.addEventListener('click', () => {
-        domGenerator.completeButtonClickEvent(button, todo);
-    })
+    button.addEventListener("click", () => {
+      domGenerator.completeButtonClickEvent(button, todo);
+    });
+  }
+  static setTodoClickEvent(todoDiv, todo) {
+    todoDiv.addEventListener("click", () => {
+      domGenerator.fillInTodoDetails(todo);
+      screenController.showModal(3);
+    });
   }
 }
 
