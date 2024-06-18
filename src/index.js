@@ -28,7 +28,14 @@ class App {
       "In Progress",
       ""
     );
-    this.createItem("Try it out for yourself!", "Placeholder Text", "", "High", "Complete", "");
+    this.createItem(
+      "Try it out for yourself!",
+      "Placeholder Text",
+      "",
+      "High",
+      "Complete",
+      ""
+    );
   }
   createProject(title) {
     const newProject = new Project(title);
@@ -55,6 +62,33 @@ class App {
       domGenerator.createItem(newTodo, project);
     }
   }
+  editItem(
+    todo,
+    newTitle,
+    newDescription,
+    newDate,
+    newPriority,
+    newStatus,
+    newProject
+  ) {
+    const oldProject = todo.getProject();
+    todo.setTitle(newTitle);
+    todo.setDescription(newDescription);
+    todo.setDate(newDate);
+    todo.setPriority(newPriority);
+    todo.setStatus(newStatus);
+    todo.setProject(newProject);
+    //if project was changed
+    // if (oldProject !== newProject) {
+    //   if(oldProject === "" && newProject !== ""){
+
+    //   } else if(oldProject !== "" && newProject === "") {
+
+    //   } else {  //project swap
+
+    //   }
+  }
+  // this.#projects["All"].removeTodo(todo);
 }
 
 const app = new App();

@@ -7,6 +7,8 @@ class DomHandler {
   #addButton;
   #addTodoForm;
   #addProjectForm;
+  #currentTodoInView;
+  #currentTodoDivInView;
   constructor() {
     this.#addButton = document.querySelector("#add-button");
     this.#addTodoForm = document.querySelector("#add-todo-form");
@@ -19,6 +21,10 @@ class DomHandler {
     this.#addProjectForm.addEventListener("submit", () => {
       const name = this.#addProjectForm.children[1].value;
       this.addProjectFormButtonEvent(name);
+    });
+    //edit form save event
+    document.querySelector("#edit-todo-form").addEventListener("submit", () => {
+      this.editFormSubmitEvent();
     });
   }
   static setProjectTabEvent(element) {
@@ -51,16 +57,37 @@ class DomHandler {
       domGenerator.completeButtonClickEvent(button, todo);
     });
   }
-  static setTodoClickEvent(todoDiv, todo) {
+  setTodoClickEvent(todoDiv, todo) {
     todoDiv.addEventListener("click", (e) => {
       //only trigger event for todo div, not children
       if (e.target !== todoDiv) return;
       domGenerator.fillInTodoDetails(todo);
       screenController.showModal(3);
+      this.#currentTodoInView = todo;
+      this.#currentTodoDivInView = todoDiv;
     });
   }
-  setEditFormSubmitEvent(todo) {
-    console.log("Saved");
+  editFormSubmitEvent() {
+    const newTitle =
+      document.querySelector("#edit-todo-form").children[0].value;
+    const newDescription =
+      document.querySelector("#edit-todo-form").children[1].value;
+    const newDate = document.querySelector("#edit-todo-form").children[3].value;
+    const newPriority =
+      document.querySelector("#edit-todo-form").children[5].value;
+    const newStatus =
+      document.querySelector("#edit-todo-form").children[7].value;
+    const newProject =
+      document.querySelector("#edit-todo-form").children[9].value;
+    app.editItem(
+      this.#currentTodoInView,
+      newTitle,
+      newDescription,
+      newDate,
+      newPriority,
+      newStatus,
+      newProject
+    );
   }
 }
 

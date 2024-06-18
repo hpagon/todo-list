@@ -86,6 +86,7 @@ class DomGenerator {
     this.#projectContentList[this.#projectContentList.length - 1].push(
       addFormProjectOption
     );
+    console.log(this.#projectContentList);
   }
   createItem(todo, project) {
     const length = this.#projectContentList.length;
@@ -105,8 +106,9 @@ class DomGenerator {
         date.textContent = todo.getDate();
         priority.textContent = todo.getPriority();
         status.textContent = todo.getStatus();
-        //add class
+        //add class/attributes
         this.setPriorityClass(priority);
+        todoDiv.setAttribute("data-todo-id", todo.getId());
         //insert elements in place
         leftContainer.append(completeButton, todoName);
         tagContainer.append(date, priority, status);
@@ -119,10 +121,11 @@ class DomGenerator {
         this.setStatusStyles(todoDiv);
         //add events
         DomHandler.setCompleteButtonEvent(completeButton, todo);
-        DomHandler.setTodoClickEvent(todoDiv, todo);
+        domHandler.setTodoClickEvent(todoDiv, todo);
       }
     }
   }
+  // editItem(project) {}
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
     const form = document.querySelector("#edit-todo-form");

@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default class Todo {
   #title;
   #description;
@@ -5,7 +7,8 @@ export default class Todo {
   #priority;
   #status;
   #project;
-  
+  #id;
+
   constructor(title, description, dueDate, priority, status, project) {
     this.#title = title;
     this.#description = description;
@@ -13,7 +16,7 @@ export default class Todo {
     this.#priority = priority;
     this.#status = status;
     this.#project = project;
-    
+    this.#id = uuidv4();
   }
   //getters
   getTitle() {
@@ -34,6 +37,9 @@ export default class Todo {
   getProject() {
     return this.#project;
   }
+  getId() {
+    return this.#id;
+  }
   //setters
   setTitle(newTitle) {
     this.#title = newTitle;
@@ -50,7 +56,7 @@ export default class Todo {
   setStatus(newStatus) {
     this.#status = newStatus;
   }
-  setProjects(newProject) {
+  setProject(newProject) {
     this.#project = newProject;
   }
 }
