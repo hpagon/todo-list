@@ -117,8 +117,6 @@ class DomGenerator {
         );
         //trigger events for intialization
         this.setStatusStyles(todoDiv);
-        //create detailed item view modal
-        this.createItemDetailedView(todo);
         //add events
         DomHandler.setCompleteButtonEvent(completeButton, todo);
         DomHandler.setTodoClickEvent(todoDiv, todo);
@@ -161,11 +159,6 @@ class DomGenerator {
       if (option.value === todo.getProject())
         option.setAttribute("selected", "selected");
     }
-  }
-  createItemDetailedView(todo) {
-    const dialog = document.createElement("dialog");
-    const form = document.createElement("form");
-    // const tex
   }
   setPriorityClass(priority) {
     switch (priority.textContent) {

@@ -52,10 +52,15 @@ class DomHandler {
     });
   }
   static setTodoClickEvent(todoDiv, todo) {
-    todoDiv.addEventListener("click", () => {
+    todoDiv.addEventListener("click", (e) => {
+      //only trigger event for todo div, not children
+      if (e.target !== todoDiv) return;
       domGenerator.fillInTodoDetails(todo);
       screenController.showModal(3);
     });
+  }
+  setEditFormSubmitEvent(todo) {
+    console.log("Saved");
   }
 }
 
