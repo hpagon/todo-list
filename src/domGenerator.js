@@ -1,6 +1,7 @@
 import { screenController } from "./screenController";
 import DomHandler, { domHandler } from "./domHandler";
 export { DomGenerator as default, domGenerator };
+import { format } from "date-fns";
 
 class DomGenerator {
   #projectList;
@@ -103,7 +104,10 @@ class DomGenerator {
         const leftContainer = document.createElement("div");
         //add content
         todoName.textContent = todo.getTitle();
-        date.textContent = todo.getDate();
+        date.textContent =
+          todo.getDate() === ""
+            ? todo.getDate()
+            : format(todo.getDate().replace(/-/g, "/"), "MMM dd, yyyy");
         priority.textContent = todo.getPriority();
         status.textContent = todo.getStatus();
         //add class/attributes
@@ -133,6 +137,7 @@ class DomGenerator {
         }
       }
     }
+    return null;
   }
   //removes item from project in dom
   removeItem(todoId, projectName) {
@@ -143,7 +148,10 @@ class DomGenerator {
     const item = this.findAndGetItem(todo.getId(), projectName);
 
     item.children[0].children[1].textContent = todo.getTitle();
-    item.children[1].children[0].textContent = todo.getDate();
+    item.children[1].children[0].textContent =
+      todo.getDate() === ""
+        ? todo.getDate()
+        : format(todo.getDate().replace(/-/g, "/"), "MMM d, yyyy");
     item.children[1].children[1].textContent = todo.getPriority();
     item.children[1].children[2].textContent = todo.getStatus();
     //set status styles in change they were changed
@@ -207,7 +215,13 @@ class DomGenerator {
     }
   }
   completeButtonClickEvent(button, todo) {
+    console.log("In the click event");
+    const today = format(new Date(), "yyyy-MM-dd");
     const allItem = this.findAndGetItem(todo.getId(), "All");
+    const todayItem =
+      todo.getDate() === today
+        ? this.findAndGetItem(todo.getId(), "Today")
+        : null;
     const projectItem =
       todo.getProject() === ""
         ? null
@@ -218,15 +232,20 @@ class DomGenerator {
     ) {
       todo.setStatus("Complete");
       allItem.children[1].children[2].textContent = "Complete";
+      if (todayItem !== null)
+        todayItem.children[1].children[2].textContent = "Complete";
       if (projectItem !== null)
         projectItem.children[1].children[2].textContent = "Complete";
     } else {
       todo.setStatus("Not Started");
       allItem.children[1].children[2].textContent = "Not Started";
+      if (todayItem !== null)
+        todayItem.children[1].children[2].textContent = "Not Started";
       if (projectItem !== null)
         projectItem.children[1].children[2].textContent = "Not Started";
     }
     this.setStatusStyles(allItem);
+    if (todayItem !== null) this.setStatusStyles(todayItem);
     if (projectItem !== null) this.setStatusStyles(projectItem);
   }
 }

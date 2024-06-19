@@ -33,7 +33,7 @@ class App {
     this.createItem(
       "Try it out for yourself!",
       "Placeholder Text",
-      "2024-06-18",
+      format(new Date(), "yyyy-MM-dd"),
       "High",
       "Complete",
       ""
@@ -75,6 +75,8 @@ class App {
     newProject
   ) {
     const oldProject = todo.getProject();
+    const oldDate = todo.getDate();
+    const today = format(new Date(), "yyyy-MM-dd");
     todo.setTitle(newTitle);
     todo.setDescription(newDescription);
     todo.setDate(newDate);
@@ -98,9 +100,20 @@ class App {
         domGenerator.moveItem(todo.getId(), oldProject, newProject);
       }
     }
-    //in all cases edit todoDiv in active projects
+    // if date was changed
+    if (oldDate !== newDate) {
+      if (oldDate !== today && newDate === today) {
+        this.#projects["Today"].addTodo(todo);
+        domGenerator.createItem(todo, "Today");
+      } else if (oldDate === today && newDate !== today) {
+        this.#projects["Today"].removeTodo(todo);
+        domGenerator.removeItem(todo.getId(), "Today");
+      }
+    }
+    //edit todoDiv in active projects
     domGenerator.editItem(todo, "All");
     if (newProject !== "") domGenerator.editItem(todo, newProject);
+    if (todo.getDate() === today) domGenerator.editItem(todo, "Today");
   }
   updateToday() {
     //clear today project
