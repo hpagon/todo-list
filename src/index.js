@@ -115,6 +115,22 @@ class App {
     if (newProject !== "") domGenerator.editItem(todo, newProject);
     if (todo.getDate() === today) domGenerator.editItem(todo, "Today");
   }
+  deleteItem(todo) {
+    const today = format(new Date(), "yyyy-MM-dd");
+    //delete from all project
+    this.#projects["All"].removeTodo(todo);
+    domGenerator.removeItem(todo.getId(), "All");
+    //delete from today
+    if (todo.getDate() === today) {
+      this.#projects["Today"].removeTodo(todo);
+      domGenerator.removeItem(todo.getId(), "Today");
+    }
+    //delete from other project
+    if (todo.getProject() !== "") {
+      this.#projects[todo.getProject()].removeTodo(todo);
+      domGenerator.removeItem(todo.getId(), todo.getProject());
+    }
+  }
   updateToday() {
     //clear today project
     this.#projects["Today"].clearTodos();

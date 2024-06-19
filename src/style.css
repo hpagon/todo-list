@@ -88,6 +88,7 @@ body > div > div {
   display: flex;
   justify-content: space-between;
   font-weight: 600;
+  /* display: none; */
 }
 
 #list-header div {
@@ -116,9 +117,11 @@ body > div > div {
   justify-content: space-between;
   align-items: center;
   padding: 0px 15px;
+  position: relative;
 }
 
 #item-list div div {
+  position: static;
   width: max-content;
   height: 15px;
 }
@@ -142,6 +145,12 @@ body > div > div {
   background: none;
   outline: none;
   border: 1px solid black;
+}
+
+#item-list div div:nth-child(2) img {
+  position: absolute;
+  right: -40px;
+  padding-left: 6px;
 }
 /* priority styles */
 

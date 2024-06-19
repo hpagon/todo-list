@@ -89,6 +89,19 @@ class DomHandler {
       newProject
     );
   }
+  setDeleteTodoEvent(closeElement, todo) {
+    closeElement.addEventListener("click", () => {
+      app.deleteItem(todo);
+    });
+  }
+  setTodoDivHoverEvent(todoDiv, closeIcon) {
+    todoDiv.addEventListener("mouseover", () => {
+      domGenerator.todoHoverEnterEvent(todoDiv, closeIcon);
+    });
+    todoDiv.addEventListener("mouseleave", () => {
+      domGenerator.todoHoverLeaveEvent(todoDiv, closeIcon);
+    });
+  }
 }
 
 const domHandler = new DomHandler();

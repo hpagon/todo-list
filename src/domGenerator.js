@@ -2,6 +2,7 @@ import { screenController } from "./screenController";
 import DomHandler, { domHandler } from "./domHandler";
 export { DomGenerator as default, domGenerator };
 import { format } from "date-fns";
+import closeIcon from "./close.svg";
 
 class DomGenerator {
   #projectList;
@@ -100,6 +101,7 @@ class DomGenerator {
         const date = document.createElement("p");
         const priority = document.createElement("div");
         const status = document.createElement("div");
+        const closeIconImg = document.createElement("img");
         const tagContainer = document.createElement("div");
         const leftContainer = document.createElement("div");
         //add content
@@ -110,12 +112,14 @@ class DomGenerator {
             : format(todo.getDate().replace(/-/g, "/"), "MMM dd, yyyy");
         priority.textContent = todo.getPriority();
         status.textContent = todo.getStatus();
+        closeIconImg.src = closeIcon;
+        closeIconImg.style.display = "none";
         //add class/attributes
         this.setPriorityClass(priority);
         todoDiv.setAttribute("data-todo-id", todo.getId());
         //insert elements in place
         leftContainer.append(completeButton, todoName);
-        tagContainer.append(date, priority, status);
+        tagContainer.append(date, priority, status, closeIconImg);
         todoDiv.append(leftContainer, tagContainer);
         //add to correct project container
         this.#projectContentList[i][0].children[1].children[1].appendChild(
@@ -126,6 +130,8 @@ class DomGenerator {
         //add events
         DomHandler.setCompleteButtonEvent(completeButton, todo);
         domHandler.setTodoClickEvent(todoDiv, todo);
+        domHandler.setDeleteTodoEvent(closeIconImg, todo);
+        domHandler.setTodoDivHoverEvent(todoDiv, closeIconImg);
       }
     }
   }
@@ -215,7 +221,6 @@ class DomGenerator {
     }
   }
   completeButtonClickEvent(button, todo) {
-    console.log("In the click event");
     const today = format(new Date(), "yyyy-MM-dd");
     const allItem = this.findAndGetItem(todo.getId(), "All");
     const todayItem =
@@ -247,6 +252,12 @@ class DomGenerator {
     this.setStatusStyles(allItem);
     if (todayItem !== null) this.setStatusStyles(todayItem);
     if (projectItem !== null) this.setStatusStyles(projectItem);
+  }
+  todoHoverEnterEvent(todoDiv, closeIconImg) {
+    closeIconImg.style.display = "block";
+  }
+  todoHoverLeaveEvent(todoDiv, closeIconImg) {
+    closeIconImg.style.display = "none";
   }
 }
 
