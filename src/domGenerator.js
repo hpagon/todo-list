@@ -125,7 +125,30 @@ class DomGenerator {
       }
     }
   }
-  // editItem(project) {}
+  findAndGetItem(todoId, projectName) {
+    for (let project of this.#projectContentList) {
+      if (project[1].textContent === projectName) {
+        for (let item of project[0].children[1].children[1].children) {
+          if (item.getAttribute("data-todo-id") === todoId) return item;
+        }
+      }
+    }
+  }
+  //removes item from project in dom
+  removeItem(todoId, projectName) {
+    this.findAndGetItem(todoId, projectName).remove();
+  }
+  //edits existing todo dom
+  editItem(todo, projectName) {
+    const item = this.findAndGetItem(todo.getId(), projectName);
+
+    item.children[0].children[1].textContent = todo.getTitle();
+    item.children[1].children[0].textContent = todo.getDate();
+    item.children[1].children[1].textContent = todo.getPriority();
+    item.children[1].children[2].textContent = todo.getStatus();
+    //set status styles in change they were changed
+    this.setStatusStyles(item);
+  }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
     const form = document.querySelector("#edit-todo-form");
@@ -135,33 +158,9 @@ class DomGenerator {
     if (todo.getDate() !== "") {
       form.children[3].value = todo.getDate();
     }
-    switch (todo.getPriority()) {
-      case "Low":
-        form.children[5].children[0].setAttribute("selected", "selected");
-        break;
-      case "Medium":
-        form.children[5].children[1].setAttribute("selected", "selected");
-        break;
-      case "High":
-        form.children[5].children[2].setAttribute("selected", "selected");
-        break;
-    }
-    switch (todo.getStatus()) {
-      case "Not Started":
-        form.children[7].children[0].setAttribute("selected", "selected");
-        break;
-      case "In Progress":
-        form.children[7].children[1].setAttribute("selected", "selected");
-        break;
-      case "Complete":
-        form.children[7].children[2].setAttribute("selected", "selected");
-        break;
-    }
-    form.children[9].children[0].setAttribute("selected", "selected");
-    for (let option of form.children[9].children) {
-      if (option.value === todo.getProject())
-        option.setAttribute("selected", "selected");
-    }
+    form.children[5].value = todo.getPriority();
+    form.children[7].value = todo.getStatus();
+    form.children[9].value = todo.getProject();
   }
   setPriorityClass(priority) {
     switch (priority.textContent) {
@@ -191,19 +190,29 @@ class DomGenerator {
     }
   }
   completeButtonClickEvent(button, todo) {
+    const allItem = this.findAndGetItem(todo.getId(), "All");
+    console.log(`allItem: ${allItem}`);
+    console.log(`todoId: ${todo.getId()}`);
+    const projectItem =
+      todo.getProject() === ""
+        ? null
+        : this.findAndGetItem(todo.getId(), todo.getProject());
     if (
       todo.getStatus() === "Not Started" ||
       todo.getStatus() === "In Progress"
     ) {
       todo.setStatus("Complete");
-      button.parentElement.parentElement.children[1].children[2].textContent =
-        "Complete";
+      allItem.children[1].children[2].textContent = "Complete";
+      if (projectItem !== null)
+        projectItem.children[1].children[2].textContent = "Complete";
     } else {
       todo.setStatus("Not Started");
-      button.parentElement.parentElement.children[1].children[2].textContent =
-        "Not Started";
+      allItem.children[1].children[2].textContent = "Not Started";
+      if (projectItem !== null)
+        projectItem.children[1].children[2].textContent = "Not Started";
     }
-    this.setStatusStyles(button.parentElement.parentElement);
+    this.setStatusStyles(allItem);
+    if (projectItem !== null) this.setStatusStyles(projectItem);
   }
 }
 

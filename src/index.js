@@ -10,6 +10,7 @@ class App {
   constructor() {
     this.createProject("All");
     this.createProject("Today");
+    this.createProject("Personal");
     //set initial screen to all project
     screenController.setProjectScreen("All");
     this.createItem(
@@ -18,7 +19,7 @@ class App {
       "",
       "Low",
       "Not Started",
-      "All"
+      ""
     );
     this.createItem(
       "The home for all your todo's.",
@@ -79,18 +80,20 @@ class App {
     todo.setStatus(newStatus);
     todo.setProject(newProject);
     //if project was changed
-    // if (oldProject !== newProject) {
-    //   if(oldProject === "" && newProject !== ""){
-
-    //   } else if(oldProject !== "" && newProject === "") {
-
-    //   } else {  //project swap
-
-    //   }
+    if (oldProject !== newProject) {
+      if (oldProject === "" && newProject !== "") {
+        domGenerator.createItem(todo, newProject);
+      } else if (oldProject !== "" && newProject === "") {
+        domGenerator.removeItem(todo.getId(), oldProject);
+      } else {
+        //project swap
+      }
+    }
+    //in all cases edit todoDiv in active projects
+    domGenerator.editItem(todo, "All");
+    if (newProject !== "") domGenerator.editItem(todo, newProject);
   }
-  // this.#projects["All"].removeTodo(todo);
 }
-
 const app = new App();
 console.log(app);
 
