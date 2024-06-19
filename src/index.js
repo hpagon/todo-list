@@ -32,7 +32,7 @@ class App {
     this.createItem(
       "Try it out for yourself!",
       "Placeholder Text",
-      "",
+      "2024-06-18",
       "High",
       "Complete",
       ""
@@ -81,12 +81,15 @@ class App {
     todo.setProject(newProject);
     //if project was changed
     if (oldProject !== newProject) {
+      //had no project before, but now it does
       if (oldProject === "" && newProject !== "") {
         domGenerator.createItem(todo, newProject);
       } else if (oldProject !== "" && newProject === "") {
+        //had project before, but now no project
         domGenerator.removeItem(todo.getId(), oldProject);
       } else {
         //project swap
+        domGenerator.moveItem(todo.getId(), oldProject, newProject);
       }
     }
     //in all cases edit todoDiv in active projects

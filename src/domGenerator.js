@@ -149,6 +149,14 @@ class DomGenerator {
     //set status styles in change they were changed
     this.setStatusStyles(item);
   }
+  moveItem(todoId, oldProject, newProject) {
+    const item = this.findAndGetItem(todoId, oldProject);
+    for (const project of this.#projectContentList) {
+      if (project[1].textContent === newProject) {
+        project[0].children[1].children[1].appendChild(item);
+      }
+    }
+  }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
     const form = document.querySelector("#edit-todo-form");
@@ -191,8 +199,6 @@ class DomGenerator {
   }
   completeButtonClickEvent(button, todo) {
     const allItem = this.findAndGetItem(todo.getId(), "All");
-    console.log(`allItem: ${allItem}`);
-    console.log(`todoId: ${todo.getId()}`);
     const projectItem =
       todo.getProject() === ""
         ? null
