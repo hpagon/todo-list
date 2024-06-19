@@ -157,6 +157,15 @@ class DomGenerator {
       }
     }
   }
+  clearItems(projectName) {
+    for (const project of this.#projectContentList) {
+      if (project[1].textContent === projectName) {
+        for (const todo of project[0].children[1].children[1].children) {
+          todo.remove();
+        }
+      }
+    }
+  }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
     const form = document.querySelector("#edit-todo-form");

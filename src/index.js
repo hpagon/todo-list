@@ -4,6 +4,7 @@ import DomGenerator, { domGenerator } from "./domGenerator";
 import ScreenController, { screenController } from "./screenController";
 import Project from "./project";
 import Todo from "./todo";
+import { format } from "date-fns";
 
 class App {
   #projects = {};
@@ -37,6 +38,7 @@ class App {
       "Complete",
       ""
     );
+    this.updateToday();
   }
   createProject(title) {
     const newProject = new Project(title);
@@ -83,18 +85,36 @@ class App {
     if (oldProject !== newProject) {
       //had no project before, but now it does
       if (oldProject === "" && newProject !== "") {
+        this.#projects[newProject].addTodo(todo);
         domGenerator.createItem(todo, newProject);
       } else if (oldProject !== "" && newProject === "") {
         //had project before, but now no project
+        this.#projects[oldProject].removeTodo(todo);
         domGenerator.removeItem(todo.getId(), oldProject);
       } else {
         //project swap
+        this.#projects[oldProject].removeTodo(todo);
+        this.#projects[newProject].addTodo(todo);
         domGenerator.moveItem(todo.getId(), oldProject, newProject);
       }
     }
     //in all cases edit todoDiv in active projects
     domGenerator.editItem(todo, "All");
     if (newProject !== "") domGenerator.editItem(todo, newProject);
+  }
+  updateToday() {
+    //clear today project
+    this.#projects["Today"].clearTodos();
+    domGenerator.clearItems("Today");
+    //repopulate today project
+    const today = format(new Date(), "yyyy-MM-dd");
+    const todos = this.#projects["All"].getItems();
+    for (const todo of todos) {
+      if (todo.getDate() === today) {
+        this.#projects["Today"].addTodo(todo);
+        domGenerator.createItem(todo, "Today");
+      }
+    }
   }
 }
 const app = new App();

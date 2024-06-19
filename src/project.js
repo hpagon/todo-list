@@ -35,4 +35,7 @@ export default class Project {
       if (todo === this.#items[i]) this.#items.splice(i, 1);
     }
   }
+  clearTodos() {
+    this.#items.splice(0, this.#items.length);
+  }
 }
