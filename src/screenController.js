@@ -12,6 +12,15 @@ class ScreenController {
   addProjectScreen(projectScreen, title) {
     this.#projects[title] = projectScreen;
   }
+  removeProjectScreen(title) {
+    delete this.#projects[title];
+  }
+  updateProjectScreen(oldTitle, newTitle) {
+    const screen = this.#projects[oldTitle];
+    delete this.#projects[oldTitle];
+    this.#projects[newTitle] = screen;
+    console.log(this.#projects);
+  }
   //change current project screen
   setProjectScreen(title) {
     //remove previous project container

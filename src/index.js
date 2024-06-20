@@ -131,9 +131,23 @@ class App {
       domGenerator.removeItem(todo.getId(), todo.getProject());
     }
   }
+  editProject(project, newTitle, newColorOne, newColorTwo) {
+    const oldTitle = project.getTitle();
+    project.setTitle(newTitle);
+    project.setColorOne(newColorOne);
+    project.setColorTwo(newColorTwo);
+    // if title was changed
+    if (oldTitle !== newTitle) {
+      delete this.#projects[oldTitle];
+      this.#projects[newTitle] = project;
+      screenController.updateProjectScreen(oldTitle, newTitle);
+    }
+    domGenerator.editProject(oldTitle, project);
+  }
   deleteProject(projectName) {
     delete this.#projects[projectName];
     domGenerator.removeProject(projectName);
+    screenController.removeProjectScreen(projectName);
   }
   updateToday() {
     //clear today project

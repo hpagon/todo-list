@@ -49,10 +49,10 @@ class DomGenerator {
     statusHeader.textContent = "Status";
     editIconImg.src = editIcon;
     //add styles
-    banner.style.background = `linear-gradient(${this.randomHexColor()}, ${this.randomHexColor()})`;
+    banner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
     //add event listeners
     DomHandler.setProjectTabEvent(sidebarLabel);
-    domHandler.setShowProjectEditFormEvent(editIconImg);
+    domHandler.setShowProjectEditFormEvent(editIconImg, project);
     //add to dom
     if (project.getTitle() === "All" || project.getTitle() === "Today") {
       document.querySelector("#default-project-list").appendChild(sidebarLabel);
@@ -145,34 +145,6 @@ class DomGenerator {
       }
     }
   }
-  randomHexColor() {
-    const hex = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-    ];
-    return (
-      "#" +
-      hex[Math.floor(Math.random() * 15)] +
-      hex[Math.floor(Math.random() * 15)] +
-      hex[Math.floor(Math.random() * 15)] +
-      hex[Math.floor(Math.random() * 15)] +
-      hex[Math.floor(Math.random() * 15)] +
-      hex[Math.floor(Math.random() * 15)]
-    );
-  }
   findAndGetItem(todoId, projectName) {
     for (let project of this.#projectContentList) {
       if (project[1].textContent === projectName) {
@@ -224,6 +196,20 @@ class DomGenerator {
     }
     return -1;
   }
+  editProject(projectName, project) {
+    const index = this.findProjectIndex(projectName);
+    const projectBanner = this.#projectContentList[index][0].children[0];
+    console.log(project.getTitle());
+    //change title
+    projectBanner.children[0].textContent = project.getTitle();
+    this.#projectContentList[index][1].textContent = project.getTitle();
+    this.#projectContentList[index][2].textContent = project.getTitle();
+    this.#projectContentList[index][2].value = project.getTitle();
+    this.#projectContentList[index][3].textContent = project.getTitle();
+    this.#projectContentList[index][3].value = project.getTitle();
+    //change colors
+    projectBanner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
+  }
   removeProject(projectName) {
     const index = this.findProjectIndex(projectName);
     //remove project container
@@ -235,6 +221,8 @@ class DomGenerator {
     this.#projectContentList[index][3].remove();
     //remove from project entries in dom memory
     this.#projectContentList.splice(index, 1);
+    //move screen back to all
+    screenController.setProjectScreen("All");
   }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
@@ -248,6 +236,14 @@ class DomGenerator {
     form.children[5].value = todo.getPriority();
     form.children[7].value = todo.getStatus();
     form.children[9].value = todo.getProject();
+  }
+  fillInProjectDetails(project) {
+    document.querySelector("#edit-project-form").children[1].value =
+      project.getTitle();
+    document.querySelector("#edit-project-form").children[3].value =
+      project.getColorOne();
+    document.querySelector("#edit-project-form").children[5].value =
+      project.getColorTwo();
   }
   setPriorityClass(priority) {
     switch (priority.textContent) {

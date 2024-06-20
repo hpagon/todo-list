@@ -8,6 +8,7 @@ class DomHandler {
   #addTodoForm;
   #addProjectForm;
   #currentTodoInView;
+  #currentProjectInView;
   #currentTodoDivInView;
   constructor() {
     this.#addButton = document.querySelector("#add-button");
@@ -32,10 +33,17 @@ class DomHandler {
       .addEventListener("click", () => {
         this.deleteFromEditFormEvent();
       });
+    //delete project button in edit form
     document
       .querySelector("#edit-project-form #delete-project-button")
       .addEventListener("click", () => {
         this.deleteProjectEvent();
+      });
+    //submit event for project edit form
+    document
+      .querySelector("#edit-project-form")
+      .addEventListener("submit", () => {
+        this.editProjectSubmitEvent();
       });
   }
   static setProjectTabEvent(element) {
@@ -117,14 +125,30 @@ class DomHandler {
     app.deleteItem(this.#currentTodoInView);
     screenController.closeModal(3);
   }
-  setShowProjectEditFormEvent(editIcon) {
+  setShowProjectEditFormEvent(editIcon, project) {
     editIcon.addEventListener("click", () => {
+      domGenerator.fillInProjectDetails(project);
       screenController.showModal(4);
+      this.#currentProjectInView = project;
     });
   }
   deleteProjectEvent() {
     app.deleteProject(screenController.getCurrentProject());
     screenController.closeModal(4);
+  }
+  editProjectSubmitEvent() {
+    const newTitle =
+      document.querySelector("#edit-project-form").children[1].value;
+    const newColorOne =
+      document.querySelector("#edit-project-form").children[3].value;
+    const newColorTwo =
+      document.querySelector("#edit-project-form").children[5].value;
+    app.editProject(
+      this.#currentProjectInView,
+      newTitle,
+      newColorOne,
+      newColorTwo
+    );
   }
 }
 
