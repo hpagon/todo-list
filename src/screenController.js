@@ -16,7 +16,7 @@ class ScreenController {
   setProjectScreen(title) {
     //remove previous project container
     if (document.querySelector("#project-container")) {
-        document.querySelector("#project-container").remove();
+      document.querySelector("#project-container").remove();
     }
     //add in new project container
     this.#contentDiv.appendChild(this.#projects[title]);
@@ -27,6 +27,9 @@ class ScreenController {
   }
   showModal(modalNum) {
     document.querySelector(`dialog:nth-child(${modalNum + 1})`).showModal();
+  }
+  closeModal(modalNum) {
+    document.querySelector(`dialog:nth-child(${modalNum + 1})`).close();
   }
 }
 

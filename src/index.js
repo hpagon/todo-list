@@ -131,6 +131,10 @@ class App {
       domGenerator.removeItem(todo.getId(), todo.getProject());
     }
   }
+  deleteProject(projectName) {
+    delete this.#projects[projectName];
+    domGenerator.removeProject(projectName);
+  }
   updateToday() {
     //clear today project
     this.#projects["Today"].clearTodos();

@@ -26,6 +26,17 @@ class DomHandler {
     document.querySelector("#edit-todo-form").addEventListener("submit", () => {
       this.editFormSubmitEvent();
     });
+    //delete todo button in edit form
+    document
+      .querySelector("#edit-todo-form #delete-todo-button")
+      .addEventListener("click", () => {
+        this.deleteFromEditFormEvent();
+      });
+    document
+      .querySelector("#edit-project-form #delete-project-button")
+      .addEventListener("click", () => {
+        this.deleteProjectEvent();
+      });
   }
   static setProjectTabEvent(element) {
     element.addEventListener("click", (e) => {
@@ -101,6 +112,19 @@ class DomHandler {
     todoDiv.addEventListener("mouseleave", () => {
       domGenerator.todoHoverLeaveEvent(todoDiv, closeIcon);
     });
+  }
+  deleteFromEditFormEvent() {
+    app.deleteItem(this.#currentTodoInView);
+    screenController.closeModal(3);
+  }
+  setShowProjectEditFormEvent(editIcon) {
+    editIcon.addEventListener("click", () => {
+      screenController.showModal(4);
+    });
+  }
+  deleteProjectEvent() {
+    app.deleteProject(screenController.getCurrentProject());
+    screenController.closeModal(4);
   }
 }
 

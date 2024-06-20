@@ -1,5 +1,3 @@
-import Todo from "./todo";
-
 export default class Project {
   #title;
   #items;

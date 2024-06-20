@@ -3,6 +3,7 @@ import DomHandler, { domHandler } from "./domHandler";
 export { DomGenerator as default, domGenerator };
 import { format } from "date-fns";
 import closeIcon from "./close.svg";
+import editIcon from "./edit.svg";
 
 class DomGenerator {
   #projectList;
@@ -30,11 +31,14 @@ class DomGenerator {
     const priorityHeader = document.createElement("p");
     const statusHeader = document.createElement("p");
     const itemListContainer = document.createElement("div");
+    const bannerOptionsDiv = document.createElement("div");
+    const editIconImg = document.createElement("img");
     //add classes/ids
     projectContainer.id = "project-container";
     listViewTableHeader.id = "list-header";
     itemsContainer.id = "items-container";
     banner.id = "banner";
+    bannerOptionsDiv.id = "banner-options";
     itemListContainer.id = "item-list";
     //add content
     sidebarLabel.textContent = project.getTitle();
@@ -43,21 +47,24 @@ class DomGenerator {
     dateHeader.textContent = "Date";
     priorityHeader.textContent = "Priority";
     statusHeader.textContent = "Status";
+    editIconImg.src = editIcon;
     //add styles
-    banner.style.backgroundColor = `rgb(${Math.floor(
-      Math.random() * 256
-    )}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
-      Math.random() * 256
-    )})`;
+    banner.style.background = `linear-gradient(${this.randomHexColor()}, ${this.randomHexColor()})`;
     //add event listeners
     DomHandler.setProjectTabEvent(sidebarLabel);
+    domHandler.setShowProjectEditFormEvent(editIconImg);
     //add to dom
     if (project.getTitle() === "All" || project.getTitle() === "Today") {
       document.querySelector("#default-project-list").appendChild(sidebarLabel);
     } else {
       this.#projectList.appendChild(sidebarLabel);
     }
-    banner.append(bannerHeader);
+    bannerOptionsDiv.append(editIconImg);
+    if (project.getTitle() === "All" || project.getTitle() === "Today") {
+      banner.append(bannerHeader);
+    } else {
+      banner.append(bannerHeader, bannerOptionsDiv);
+    }
     tableHeaderLeftDiv.append(nameHeader);
     tableHeaderRightDiv.append(dateHeader, priorityHeader, statusHeader);
     listViewTableHeader.append(tableHeaderLeftDiv, tableHeaderRightDiv);
@@ -87,6 +94,9 @@ class DomGenerator {
       .appendChild(editFormProjectOption);
     this.#projectContentList[this.#projectContentList.length - 1].push(
       addFormProjectOption
+    );
+    this.#projectContentList[this.#projectContentList.length - 1].push(
+      editFormProjectOption
     );
     console.log(this.#projectContentList);
   }
@@ -135,6 +145,34 @@ class DomGenerator {
       }
     }
   }
+  randomHexColor() {
+    const hex = [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+    ];
+    return (
+      "#" +
+      hex[Math.floor(Math.random() * 15)] +
+      hex[Math.floor(Math.random() * 15)] +
+      hex[Math.floor(Math.random() * 15)] +
+      hex[Math.floor(Math.random() * 15)] +
+      hex[Math.floor(Math.random() * 15)] +
+      hex[Math.floor(Math.random() * 15)]
+    );
+  }
   findAndGetItem(todoId, projectName) {
     for (let project of this.#projectContentList) {
       if (project[1].textContent === projectName) {
@@ -180,15 +218,33 @@ class DomGenerator {
       }
     }
   }
+  findProjectIndex(projectName) {
+    for (let i = 0; i < this.#projectContentList.length; i++) {
+      if (this.#projectContentList[i][1].textContent === projectName) return i;
+    }
+    return -1;
+  }
+  removeProject(projectName) {
+    const index = this.findProjectIndex(projectName);
+    //remove project container
+    this.#projectContentList[index][0].remove();
+    //remove project listing
+    this.#projectContentList[index][1].remove();
+    //remove project dialog options
+    this.#projectContentList[index][2].remove();
+    this.#projectContentList[index][3].remove();
+    //remove from project entries in dom memory
+    this.#projectContentList.splice(index, 1);
+  }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
     const form = document.querySelector("#edit-todo-form");
 
     form.children[0].value = todo.getTitle();
     form.children[1].value = todo.getDescription();
-    if (todo.getDate() !== "") {
-      form.children[3].value = todo.getDate();
-    }
+    // if (todo.getDate() !== "") {
+    form.children[3].value = todo.getDate();
+    // }
     form.children[5].value = todo.getPriority();
     form.children[7].value = todo.getStatus();
     form.children[9].value = todo.getProject();
