@@ -260,6 +260,10 @@ body > div > div {
   font-size: 45px;
   outline: none;
   background-color: var(--background-color-three);
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  text-align: -moz-center;
 }
 
 /* rgb(199, 167, 198) */
@@ -269,8 +273,8 @@ dialog {
   margin: auto;
   border: none;
   border-radius: 5px;
-  background-color: var(--background-color-one);
-  width: 300px;
+  /* background-color: var(--background-color-one); */
+  width: clamp(250px, 40%, 700px);
 }
 
 dialog::backdrop {
@@ -285,7 +289,8 @@ dialog form {
 }
 
 dialog form *:not(label) {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  /* margin-top: 10px; */
   border: none;
   /* display: inline; */
 }
@@ -295,7 +300,7 @@ dialog form input {
   outline: none;
 }
 
-dialog #add-todo-form input:nth-child(1) {
+dialog form input[type="text"] {
   height: 50px;
   width: 100%;
   margin: auto;
@@ -304,19 +309,62 @@ dialog #add-todo-form input:nth-child(1) {
   border-radius: 0px;
 }
 
-dialog #add-todo-form input:nth-child(2) {
-  height: 40px;
+dialog #add-project-form input[type="text"]
+/* dialog #edit-project-form input[type="text"]  */ {
+  border-bottom: 1px solid lightgray;
+}
+
+dialog #add-todo-form textarea,
+dialog #edit-todo-form textarea {
+  height: 80px;
+  outline: none;
   border-radius: 0px;
+  resize: none;
+  font-size: 16px;
+}
+
+dialog form select,
+dialog form input[type="date"],
+dialog form input[type="color"] {
+  height: 30px;
+  width: 60%;
+  box-shadow: 0 0 1px black;
+}
+
+dialog form div {
+  height: 50px;
+}
+
+dialog form div:nth-last-child(n + 2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+
+dialog #add-todo-form div:nth-child(-n + 1) {
+  border-top: 1px solid lightgray;
 }
 
 dialog form input[type="submit"],
 dialog form input[value="Delete"] {
   background-color: green;
+  /* margin: auto; */
+  margin-top: 20px;
   color: var(--background-color-one);
   height: 30px;
   width: 70px;
+  font-weight: 600;
 }
 
 dialog form input[value="Delete"] {
   background-color: red;
+}
+
+dialog form label {
+  /* background-color: rgba(0, 0, 0, 0.8);
+  color: var(--background-color-one);
+  border-radius: 5px;
+  padding: 1px 20px; */
+  font-weight: 600;
 }

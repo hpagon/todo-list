@@ -28,11 +28,15 @@
           placeholder="Name of todo..."
           required
         />
-        <input
+        <!-- <input
           type="text"
           name="description"
           placeholder="Description of the todo..."
-        />
+        /> -->
+        <textarea
+          name="description"
+          placeholder="Description of the todo..."
+        ></textarea>
         <div>
           <label for="date">Date</label>
           <input type="date" name="date" id="date" />
@@ -54,7 +58,7 @@
           </select>
         </div>
         <div>
-          <label for="project">Project:</label>
+          <label for="project">Project</label>
           <select name="project" id="project-select">
             <option value=""></option>
           </select>
@@ -65,14 +69,21 @@
     <dialog>
       <form method="dialog" id="add-project-form">
         <label for="projectName">Name</label>
-        <input type="text" id="projectName" name="name" required />
+        <input
+          type="text"
+          id="projectName"
+          name="name"
+          required
+          placeholder="Name of project."
+        />
         <input type="submit" value="Add" />
       </form>
     </dialog>
     <dialog>
       <form method="dialog" id="edit-todo-form">
         <input type="text" name="title" required />
-        <input type="text" name="description" />
+        <!-- <input type="text" name="description" /> -->
+        <textarea name="description"></textarea>
         <div>
           <label for="date">Date</label>
           <input type="date" name="date" id="edit-date" />
@@ -94,7 +105,7 @@
           </select>
         </div>
         <div>
-          <label for="project">Project:</label>
+          <label for="project">Project</label>
           <select name="project" id="project-select">
             <option value=""></option>
           </select>
@@ -108,7 +119,13 @@
     <dialog>
       <form method="dialog" id="edit-project-form">
         <label for="projectName">Name</label>
-        <input type="text" id="projectName" name="name" required />
+        <input
+          type="text"
+          id="projectName"
+          name="name"
+          required
+          placeholder="Name of project."
+        />
         <div>
           <label for="gradient">Color One</label>
           <input type="color" />
