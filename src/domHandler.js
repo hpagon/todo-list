@@ -60,9 +60,12 @@ class DomHandler {
     const name = document.querySelector("#add-todo-form").children[0].value;
     const description =
       document.querySelector("#add-todo-form").children[1].value;
-    const date = document.querySelector("#add-todo-form").children[3].value;
-    const priority = document.querySelector("#add-todo-form").children[5].value;
-    const status = document.querySelector("#add-todo-form").children[7].value;
+    const date =
+      document.querySelector("#add-todo-form").children[2].children[1].value;
+    const priority =
+      document.querySelector("#add-todo-form").children[3].children[1].value;
+    const status =
+      document.querySelector("#add-todo-form").children[4].children[1].value;
     const project = document.querySelector("#project-select").value;
     app.createItem(name, description, date, priority, status, project);
   }
@@ -92,13 +95,14 @@ class DomHandler {
       document.querySelector("#edit-todo-form").children[0].value;
     const newDescription =
       document.querySelector("#edit-todo-form").children[1].value;
-    const newDate = document.querySelector("#edit-todo-form").children[3].value;
+    const newDate =
+      document.querySelector("#edit-todo-form").children[2].children[1].value;
     const newPriority =
-      document.querySelector("#edit-todo-form").children[5].value;
+      document.querySelector("#edit-todo-form").children[3].children[1].value;
     const newStatus =
-      document.querySelector("#edit-todo-form").children[7].value;
+      document.querySelector("#edit-todo-form").children[4].children[1].value;
     const newProject =
-      document.querySelector("#edit-todo-form").children[9].value;
+      document.querySelector("#edit-todo-form").children[5].children[1].value;
     app.editItem(
       this.#currentTodoInView,
       newTitle,
@@ -141,9 +145,11 @@ class DomHandler {
     const newTitle =
       document.querySelector("#edit-project-form").children[1].value;
     const newColorOne =
-      document.querySelector("#edit-project-form").children[3].value;
+      document.querySelector("#edit-project-form").children[2].children[1]
+        .value;
     const newColorTwo =
-      document.querySelector("#edit-project-form").children[5].value;
+      document.querySelector("#edit-project-form").children[3].children[1]
+        .value;
     app.editProject(
       this.#currentProjectInView,
       newTitle,

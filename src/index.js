@@ -59,6 +59,11 @@ class App {
     this.#projects["All"].addTodo(newTodo);
     console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
+    // if project is due today, assign to today project
+    if (date === format(new Date(), "yyyy-MM-dd")) {
+      this.#projects["Today"].addTodo(newTodo);
+      domGenerator.createItem(newTodo, "Today");
+    }
     //if project was assigned add todo to said project
     if (project !== "All" && project !== "") {
       this.#projects[project].addTodo(newTodo);

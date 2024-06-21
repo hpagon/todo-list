@@ -49,7 +49,7 @@ body > div > div {
 }
 
 #header h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin-left: var(--left-indent-one);
 }
 
@@ -94,7 +94,7 @@ body > div > div {
   height: 25px;
   width: 25px;
   border-radius: 5px;
-  margin-right: 3px;
+  margin-right: 5px;
   background-color: red;
 }
 
@@ -106,7 +106,6 @@ body > div > div {
   outline: none;
   border-radius: 50%;
   font-size: 18px;
-  /* font-weight: 600; */
 }
 
 /* main content styles */
@@ -264,3 +263,60 @@ body > div > div {
 }
 
 /* rgb(199, 167, 198) */
+/* modal styles */
+dialog {
+  align-self: center;
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--background-color-one);
+  width: 300px;
+}
+
+dialog::backdrop {
+  /* backdrop-filter: blur(3px); */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog form {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+dialog form *:not(label) {
+  margin-bottom: 10px;
+  border: none;
+  /* display: inline; */
+}
+
+dialog form input {
+  border-radius: 5px;
+  outline: none;
+}
+
+dialog #add-todo-form input:nth-child(1) {
+  height: 50px;
+  width: 100%;
+  margin: auto;
+  font-size: 32px;
+  margin-bottom: 0;
+  border-radius: 0px;
+}
+
+dialog #add-todo-form input:nth-child(2) {
+  height: 40px;
+  border-radius: 0px;
+}
+
+dialog form input[type="submit"],
+dialog form input[value="Delete"] {
+  background-color: green;
+  color: var(--background-color-one);
+  height: 30px;
+  width: 70px;
+}
+
+dialog form input[value="Delete"] {
+  background-color: red;
+}

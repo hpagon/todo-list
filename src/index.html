@@ -33,24 +33,32 @@
           name="description"
           placeholder="Description of the todo..."
         />
-        <label for="date">Date</label>
-        <input type="date" name="date" id="date" />
-        <label for="priority">Priority</label>
-        <select name="priority" id="priority-select">
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <label for="status">Status</label>
-        <select name="status" id="status-select">
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
-        </select>
-        <label for="project">Project:</label>
-        <select name="project" id="project-select">
-          <option value=""></option>
-        </select>
+        <div>
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date" />
+        </div>
+        <div>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority-select">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select name="status" id="status-select">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+        <div>
+          <label for="project">Project:</label>
+          <select name="project" id="project-select">
+            <option value=""></option>
+          </select>
+        </div>
         <input type="submit" value="Add" />
       </form>
     </dialog>
@@ -65,38 +73,54 @@
       <form method="dialog" id="edit-todo-form">
         <input type="text" name="title" required />
         <input type="text" name="description" />
-        <label for="date">Date</label>
-        <input type="date" name="date" id="edit-date" />
-        <label for="priority">Priority</label>
-        <select name="priority" id="priority-select">
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <label for="status">Status</label>
-        <select name="status" id="status-select">
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
-        </select>
-        <label for="project">Project:</label>
-        <select name="project" id="project-select">
-          <option value=""></option>
-        </select>
-        <input type="button" value="Delete" id="delete-todo-button" />
-        <input type="submit" value="Save" />
+        <div>
+          <label for="date">Date</label>
+          <input type="date" name="date" id="edit-date" />
+        </div>
+        <div>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority-select">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select name="status" id="status-select">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+        <div>
+          <label for="project">Project:</label>
+          <select name="project" id="project-select">
+            <option value=""></option>
+          </select>
+        </div>
+        <div>
+          <input type="button" value="Delete" id="delete-todo-button" />
+          <input type="submit" value="Save" />
+        </div>
       </form>
     </dialog>
     <dialog>
       <form method="dialog" id="edit-project-form">
         <label for="projectName">Name</label>
         <input type="text" id="projectName" name="name" required />
-        <label for="gradient">Color One</label>
-        <input type="color" />
-        <label for="gradient">Color Two</label>
-        <input type="color" />
-        <input type="button" value="Delete" id="delete-project-button" />
-        <input type="submit" value="Save" />
+        <div>
+          <label for="gradient">Color One</label>
+          <input type="color" />
+        </div>
+        <div>
+          <label for="gradient">Color Two</label>
+          <input type="color" />
+        </div>
+        <div>
+          <input type="button" value="Delete" id="delete-project-button" />
+          <input type="submit" value="Save" />
+        </div>
       </form>
     </dialog>
     <button id="add-button">+</button>

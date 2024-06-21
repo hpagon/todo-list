@@ -178,6 +178,7 @@ class DomGenerator {
         ? todo.getDate()
         : format(todo.getDate().replace(/-/g, "/"), "MMM d, yyyy");
     item.children[1].children[1].textContent = todo.getPriority();
+    this.setPriorityClass(item.children[1].children[1]);
     item.children[1].children[2].textContent = todo.getStatus();
     //set status styles in change they were changed
     this.setStatusStyles(item);
@@ -216,6 +217,8 @@ class DomGenerator {
     this.#projectContentList[index][2].value = project.getTitle();
     this.#projectContentList[index][3].textContent = project.getTitle();
     this.#projectContentList[index][3].value = project.getTitle();
+    if (this.#selectedProjectName === projectName)
+      this.#selectedProjectName = project.getTitle();
     //change colors
     projectBanner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
     this.#projectContentList[index][1].prepend(projectIcon);
@@ -242,21 +245,26 @@ class DomGenerator {
     form.children[0].value = todo.getTitle();
     form.children[1].value = todo.getDescription();
     // if (todo.getDate() !== "") {
-    form.children[3].value = todo.getDate();
+    form.children[2].children[1].value = todo.getDate();
     // }
-    form.children[5].value = todo.getPriority();
-    form.children[7].value = todo.getStatus();
-    form.children[9].value = todo.getProject();
+    form.children[3].children[1].value = todo.getPriority();
+    form.children[4].children[1].value = todo.getStatus();
+    form.children[5].children[1].value = todo.getProject();
   }
   fillInProjectDetails(project) {
     document.querySelector("#edit-project-form").children[1].value =
       project.getTitle();
-    document.querySelector("#edit-project-form").children[3].value =
+    document.querySelector("#edit-project-form").children[2].children[1].value =
       project.getColorOne();
-    document.querySelector("#edit-project-form").children[5].value =
+    document.querySelector("#edit-project-form").children[3].children[1].value =
       project.getColorTwo();
   }
   setPriorityClass(priority) {
+    priority.classList.remove(
+      "low-priority",
+      "medium-priority",
+      "high-priority"
+    );
     switch (priority.textContent) {
       case "Low":
         priority.classList.add("low-priority");
