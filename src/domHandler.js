@@ -47,8 +47,9 @@ class DomHandler {
       });
   }
   static setProjectTabEvent(element) {
-    element.addEventListener("click", (e) => {
-      screenController.setProjectScreen(e.target.textContent);
+    element.addEventListener("click", () => {
+      screenController.setProjectScreen(element.textContent);
+      domGenerator.updateSelectedProject(element);
     });
   }
   addItemEvent() {

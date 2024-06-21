@@ -10,6 +10,7 @@ class DomGenerator {
   #content = document.querySelector("#content");
   #project = document.querySelector("#project-container");
   #projectContentList;
+  #selectedProjectName;
 
   constructor() {
     this.#projectList = document.querySelector("#projects");
@@ -33,7 +34,13 @@ class DomGenerator {
     const itemListContainer = document.createElement("div");
     const bannerOptionsDiv = document.createElement("div");
     const editIconImg = document.createElement("img");
+    const projectIcon = document.createElement("div");
     //add classes/ids
+    //give project tab selected styles if all
+    if (project.getTitle() === "All") {
+      sidebarLabel.classList.add("selected-project-tab");
+      this.#selectedProjectName = "All";
+    }
     projectContainer.id = "project-container";
     listViewTableHeader.id = "list-header";
     itemsContainer.id = "items-container";
@@ -50,10 +57,12 @@ class DomGenerator {
     editIconImg.src = editIcon;
     //add styles
     banner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
+    projectIcon.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
     //add event listeners
     DomHandler.setProjectTabEvent(sidebarLabel);
     domHandler.setShowProjectEditFormEvent(editIconImg, project);
     //add to dom
+    sidebarLabel.prepend(projectIcon);
     if (project.getTitle() === "All" || project.getTitle() === "Today") {
       document.querySelector("#default-project-list").appendChild(sidebarLabel);
     } else {
@@ -199,7 +208,7 @@ class DomGenerator {
   editProject(projectName, project) {
     const index = this.findProjectIndex(projectName);
     const projectBanner = this.#projectContentList[index][0].children[0];
-    console.log(project.getTitle());
+    const projectIcon = this.#projectContentList[index][1].children[0];
     //change title
     projectBanner.children[0].textContent = project.getTitle();
     this.#projectContentList[index][1].textContent = project.getTitle();
@@ -209,6 +218,8 @@ class DomGenerator {
     this.#projectContentList[index][3].value = project.getTitle();
     //change colors
     projectBanner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
+    this.#projectContentList[index][1].prepend(projectIcon);
+    projectIcon.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
   }
   removeProject(projectName) {
     const index = this.findProjectIndex(projectName);
@@ -310,6 +321,12 @@ class DomGenerator {
   }
   todoHoverLeaveEvent(todoDiv, closeIconImg) {
     closeIconImg.style.display = "none";
+  }
+  updateSelectedProject(projectTab) {
+    const index = this.findProjectIndex(this.#selectedProjectName);
+    this.#projectContentList[index][1].classList.remove("selected-project-tab");
+    projectTab.classList.add("selected-project-tab");
+    this.#selectedProjectName = projectTab.textContent;
   }
 }
 

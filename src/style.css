@@ -19,6 +19,8 @@
 :root {
   --background-color-one: #f8f9fa;
   --background-color-three: #dee2e6;
+  --left-indent-one: 10px;
+  --left-indent-two: 8px;
   font-family: "Roboto";
 }
 
@@ -35,7 +37,7 @@ body > div > div {
 #container {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: minmax(230px, 350px) 4fr;
   grid-template-rows: 35px 1fr;
 }
 
@@ -46,6 +48,11 @@ body > div > div {
   /* background-color: var(--background-color-one); */
 }
 
+#header h1 {
+  font-size: 24px;
+  margin-left: var(--left-indent-one);
+}
+
 /* sidebar styles */
 #sidebar {
   background-color: var(--background-color-one);
@@ -54,6 +61,41 @@ body > div > div {
 #sidebar div {
   display: flex;
   align-items: center;
+  margin-left: var(--left-indent-one);
+}
+
+#sidebar li {
+  margin: 10px 0;
+  margin-left: var(--left-indent-two);
+  list-style-type: none;
+  width: calc(100% - (2 * var(--left-indent-two)));
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 1px black;
+  font-size: 1em;
+}
+
+#sidebar .selected-project-tab {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--background-color-one);
+}
+
+#sidebar li:hover {
+  /* border: 1px solid black; */
+  box-shadow: 0 0 2px black;
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  /* color: var(--background-color-one); */
+}
+
+#sidebar li div {
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  margin-right: 3px;
+  background-color: red;
 }
 
 #sidebar div button {
@@ -154,17 +196,17 @@ body > div > div {
 }
 /* priority styles */
 
-/* #item-list div div .low-priority {
-  background: none;
+#item-list div div .low-priority {
+  background: green;
 }
 
 #item-list div div .medium-priority {
-  background-color: yellow;
+  background-color: orange;
 }
 
 #item-list div div .high-priority {
   background-color: red;
-} */
+}
 
 /* status styles */
 #item-list .not-started div button {
@@ -176,15 +218,11 @@ body > div > div {
 }
 
 #item-list .in-progress div button::after {
-  content: "---";
-  font-size: 18px;
-  font-weight: 600;
+  content: url("./remove.svg");
 }
 
 #item-list .complete div button::after {
-  content: "✓";
-  font-size: 18px;
-  font-weight: 600;
+  content: url("./check.svg");
 }
 
 #item-list .complete div p {
