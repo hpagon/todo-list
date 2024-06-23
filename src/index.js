@@ -8,57 +8,95 @@ import { format } from "date-fns";
 
 class App {
   #projects = {};
+  #projectList;
+  #itemList;
   constructor() {
-    this.createProject("All");
-    this.createProject("Today");
-    this.createProject("Personal");
+    // localStorage.clear();
+    //if no existing data, seed intial data
+    if (localStorage.length === 0) {
+      this.#projectList = [];
+      this.#itemList = [];
+      this.createProject("All");
+      this.createProject("Today");
+      this.createProject("Personal");
+      this.createItem(
+        "Welcome to your todo...",
+        "Placeholder Text",
+        "",
+        "Low",
+        "Not Started",
+        ""
+      );
+      this.createItem(
+        "The home for all your todo's.",
+        "Placeholder Text",
+        "",
+        "Medium",
+        "In Progress",
+        ""
+      );
+      this.createItem(
+        "Try it out for yourself!",
+        "Placeholder Text",
+        format(new Date(), "yyyy-MM-dd"),
+        "High",
+        "Complete",
+        ""
+      );
+      this.updateToday();
+    } else {
+      //load in existing data
+      this.#projectList = JSON.parse(localStorage.getItem("projectList"));
+      this.#itemList = JSON.parse(localStorage.getItem("itemList"));
+      for (let projectId of this.#projectList) {
+        const project = JSON.parse(localStorage.getItem(projectId));
+        this.createProject(
+          project.title,
+          project.colorOne,
+          project.colorTwo,
+          project.id
+        );
+      }
+      for (let itemId of this.#itemList) {
+        const item = JSON.parse(localStorage.getItem(itemId));
+        this.createItem(
+          item.title,
+          item.description,
+          item.dueDate,
+          item.priority,
+          item.status,
+          item.project,
+          item.id
+        );
+      }
+    }
     //set initial screen to all project
     screenController.setProjectScreen("All");
-    this.createItem(
-      "Welcome to your todo...",
-      "Placeholder Text",
-      "",
-      "Low",
-      "Not Started",
-      ""
-    );
-    this.createItem(
-      "The home for all your todo's.",
-      "Placeholder Text",
-      "",
-      "Medium",
-      "In Progress",
-      ""
-    );
-    this.createItem(
-      "Try it out for yourself!",
-      "Placeholder Text",
-      format(new Date(), "yyyy-MM-dd"),
-      "High",
-      "Complete",
-      ""
-    );
-    this.updateToday();
   }
-  createProject(title) {
-    const newProject = new Project(title);
+  createProject(title, colorOne, colorTwo, id) {
+    const newProject = new Project(title, colorOne, colorTwo, id);
     //add project to application project array
     this.#projects[title] = newProject;
     //create dom for project
     domGenerator.createProject(newProject);
+    //save to localStorage
+    this.saveProject(newProject);
   }
-  createItem(name, description, date, priority, status, project) {
+  createItem(name, description, date, priority, status, project, id) {
     const newTodo = new Todo(
       name,
       description,
       date,
       priority,
       status,
-      project
+      project,
+      id
     );
     this.#projects["All"].addTodo(newTodo);
     console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
+    //save to localStorage
+    this.saveItem(newTodo);
     // if project is due today, assign to today project
     if (date === format(new Date(), "yyyy-MM-dd")) {
       this.#projects["Today"].addTodo(newTodo);
@@ -119,6 +157,8 @@ class App {
     domGenerator.editItem(todo, "All");
     if (newProject !== "") domGenerator.editItem(todo, newProject);
     if (todo.getDate() === today) domGenerator.editItem(todo, "Today");
+    //update item in localStorage
+    this.saveItem(todo);
   }
   deleteItem(todo) {
     const today = format(new Date(), "yyyy-MM-dd");
@@ -135,6 +175,8 @@ class App {
       this.#projects[todo.getProject()].removeTodo(todo);
       domGenerator.removeItem(todo.getId(), todo.getProject());
     }
+    //delete from localStorage
+    this.unsaveItem(todo);
   }
   editProject(project, newTitle, newColorOne, newColorTwo) {
     const oldTitle = project.getTitle();
@@ -146,10 +188,24 @@ class App {
       delete this.#projects[oldTitle];
       this.#projects[newTitle] = project;
       screenController.updateProjectScreen(oldTitle, newTitle);
+      for (let item of this.#projects[newTitle].getItems()) {
+        item.setProject(newTitle);
+        this.saveItem(item);
+      }
     }
     domGenerator.editProject(oldTitle, project);
+    this.saveProject(project);
+    console.log(this.#projects[newTitle].getItems());
   }
   deleteProject(projectName) {
+    //delete from localStorage
+    this.unsaveProject(projectName);
+    //remove project from all assigned todos
+    for (let item of this.#projects[projectName].getItems()) {
+      item.setProject("");
+      this.saveItem(item);
+    }
+    //delete from current instance
     delete this.#projects[projectName];
     domGenerator.removeProject(projectName);
     screenController.removeProjectScreen(projectName);
@@ -165,6 +221,68 @@ class App {
       if (todo.getDate() === today) {
         this.#projects["Today"].addTodo(todo);
         domGenerator.createItem(todo, "Today");
+      }
+    }
+  }
+  saveProject(project) {
+    if (!localStorage.getItem(project.getId())) {
+      this.#projectList.push(project.getId());
+      localStorage.setItem("projectList", JSON.stringify(this.#projectList));
+    }
+    //
+    localStorage.setItem(
+      project.getId(),
+      JSON.stringify({
+        title: project.getTitle(),
+        colorOne: project.getColorOne(),
+        colorTwo: project.getColorTwo(),
+        id: project.getId(),
+      })
+    );
+    console.log(this.#projectList);
+  }
+  saveItem(item) {
+    if (!localStorage.getItem(item.getId())) {
+      this.#itemList.push(item.getId());
+      localStorage.setItem("itemList", JSON.stringify(this.#itemList));
+    }
+
+    localStorage.setItem(
+      item.getId(),
+      JSON.stringify({
+        title: item.getTitle(),
+        description: item.getDescription(),
+        dueDate: item.getDate(),
+        priority: item.getPriority(),
+        status: item.getStatus(),
+        project: item.getProject(),
+        id: item.getId(),
+      })
+    );
+    console.log(this.#itemList);
+  }
+  unsaveProject(projectName) {
+    //remove from localStorage
+    const projectId = this.#projects[projectName].getId();
+    localStorage.removeItem(projectId);
+    //update projectList
+    for (let i = 0; i < this.#projectList.length; i++) {
+      if (this.#projectList[i] === projectId) {
+        this.#projectList.splice(i, 1);
+        localStorage.setItem("projectList", JSON.stringify(this.#projectList));
+        return;
+      }
+    }
+  }
+  unsaveItem(item) {
+    //remove from local storage
+    localStorage.removeItem(item.getId());
+    //update itemList
+    for (let i = 0; i < this.#itemList.length; i++) {
+      if (this.#itemList[i] === item.getId()) {
+        this.#itemList.splice(i, 1);
+        localStorage.setItem("itemList", JSON.stringify(this.#itemList));
+        return;
       }
     }
   }

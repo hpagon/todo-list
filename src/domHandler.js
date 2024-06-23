@@ -53,6 +53,7 @@ class DomHandler {
     });
   }
   addItemEvent() {
+    domGenerator.clearModal(1);
     screenController.showModal(1);
   }
   //extract data from dialog form and notify observers
@@ -70,6 +71,7 @@ class DomHandler {
     app.createItem(name, description, date, priority, status, project);
   }
   showAddProjectEvent() {
+    domGenerator.clearModal(2);
     screenController.showModal(2);
   }
   addProjectFormButtonEvent(name) {

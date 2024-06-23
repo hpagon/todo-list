@@ -9,14 +9,22 @@ export default class Todo {
   #project;
   #id;
 
-  constructor(title, description, dueDate, priority, status, project) {
+  constructor(
+    title,
+    description,
+    dueDate,
+    priority,
+    status,
+    project,
+    id = uuidv4()
+  ) {
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
     this.#priority = priority;
     this.#status = status;
     this.#project = project;
-    this.#id = uuidv4();
+    this.#id = id;
   }
   //getters
   getTitle() {

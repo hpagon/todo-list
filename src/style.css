@@ -81,6 +81,7 @@ body > div > div {
 #sidebar .selected-project-tab {
   background-color: rgba(0, 0, 0, 0.8);
   color: var(--background-color-one);
+  font-weight: 600;
 }
 
 #sidebar li:hover {

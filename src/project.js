@@ -1,15 +1,24 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default class Project {
   #title;
   #items;
   #view;
   #colorOne;
   #colorTwo;
-  constructor(title) {
+  #id;
+  constructor(
+    title,
+    colorOne = this.randomHexColor(),
+    colorTwo = this.randomHexColor(),
+    id = uuidv4()
+  ) {
     this.#title = title;
     this.#items = [];
     this.#view = "List";
-    this.#colorOne = this.randomHexColor();
-    this.#colorTwo = this.randomHexColor();
+    this.#colorOne = colorOne;
+    this.#colorTwo = colorTwo;
+    this.#id = id;
   }
   //getters
   getTitle() {
@@ -26,6 +35,9 @@ export default class Project {
   }
   getColorTwo() {
     return this.#colorTwo;
+  }
+  getId() {
+    return this.#id;
   }
   //setters
   setTitle(newTitle) {

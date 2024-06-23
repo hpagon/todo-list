@@ -237,6 +237,8 @@ class DomGenerator {
     this.#projectContentList.splice(index, 1);
     //move screen back to all
     screenController.setProjectScreen("All");
+    //if selected project, reset selected project to All
+    this.#selectedProjectName = "All";
   }
   //fills in info from todo that was clicked
   fillInTodoDetails(todo) {
@@ -335,6 +337,9 @@ class DomGenerator {
     this.#projectContentList[index][1].classList.remove("selected-project-tab");
     projectTab.classList.add("selected-project-tab");
     this.#selectedProjectName = projectTab.textContent;
+  }
+  clearModal(modalNum) {
+    document.querySelector(`dialog:nth-child(${modalNum + 1}) form`).reset();
   }
 }
 
