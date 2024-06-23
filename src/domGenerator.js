@@ -69,11 +69,11 @@ class DomGenerator {
       this.#projectList.appendChild(sidebarLabel);
     }
     bannerOptionsDiv.append(editIconImg);
-    if (project.getTitle() === "All" || project.getTitle() === "Today") {
-      banner.append(bannerHeader);
-    } else {
-      banner.append(bannerHeader, bannerOptionsDiv);
-    }
+    // if (project.getTitle() === "All" || project.getTitle() === "Today") {
+    //   banner.append(bannerHeader);
+    // } else {
+    banner.append(bannerHeader, bannerOptionsDiv);
+    // }
     tableHeaderLeftDiv.append(nameHeader);
     tableHeaderRightDiv.append(dateHeader, priorityHeader, statusHeader);
     listViewTableHeader.append(tableHeaderLeftDiv, tableHeaderRightDiv);
@@ -213,10 +213,12 @@ class DomGenerator {
     //change title
     projectBanner.children[0].textContent = project.getTitle();
     this.#projectContentList[index][1].textContent = project.getTitle();
-    this.#projectContentList[index][2].textContent = project.getTitle();
-    this.#projectContentList[index][2].value = project.getTitle();
-    this.#projectContentList[index][3].textContent = project.getTitle();
-    this.#projectContentList[index][3].value = project.getTitle();
+    if (projectName !== "All" && projectName !== "Today") {
+      this.#projectContentList[index][2].textContent = project.getTitle();
+      this.#projectContentList[index][2].value = project.getTitle();
+      this.#projectContentList[index][3].textContent = project.getTitle();
+      this.#projectContentList[index][3].value = project.getTitle();
+    }
     if (this.#selectedProjectName === projectName)
       this.#selectedProjectName = project.getTitle();
     //change colors
@@ -340,6 +342,37 @@ class DomGenerator {
   }
   clearModal(modalNum) {
     document.querySelector(`dialog:nth-child(${modalNum + 1}) form`).reset();
+  }
+  //pre selects values for add todo form depending on the current selected project
+  updateSelectedProjectOption() {
+    if (
+      this.#selectedProjectName !== "All" &&
+      this.#selectedProjectName !== "Today"
+    ) {
+      document.querySelector("#add-todo-form").children[5].children[1].value =
+        this.#selectedProjectName;
+    }
+    if (this.#selectedProjectName === "Today") {
+      document.querySelector("#add-todo-form").children[2].children[1].value =
+        format(new Date(), "yyyy-MM-dd");
+    }
+  }
+  //Hides options for pinned projects in edit project form
+  toggleBulletedProjectEditOptions() {
+    if (
+      this.#selectedProjectName === "All" ||
+      this.#selectedProjectName === "Today"
+    ) {
+      document.querySelector("#edit-project-form").children[1].disabled = true;
+      document.querySelector(
+        "#edit-project-form"
+      ).children[4].children[0].style.display = "none";
+    } else {
+      document.querySelector("#edit-project-form").children[1].disabled = false;
+      document.querySelector(
+        "#edit-project-form"
+      ).children[4].children[0].style.display = "inline";
+    }
   }
 }
 

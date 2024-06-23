@@ -54,6 +54,7 @@ class DomHandler {
   }
   addItemEvent() {
     domGenerator.clearModal(1);
+    domGenerator.updateSelectedProjectOption();
     screenController.showModal(1);
   }
   //extract data from dialog form and notify observers
@@ -136,6 +137,7 @@ class DomHandler {
   setShowProjectEditFormEvent(editIcon, project) {
     editIcon.addEventListener("click", () => {
       domGenerator.fillInProjectDetails(project);
+      domGenerator.toggleBulletedProjectEditOptions();
       screenController.showModal(4);
       this.#currentProjectInView = project;
     });
