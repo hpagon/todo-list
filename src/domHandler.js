@@ -80,6 +80,7 @@ class DomHandler {
   static setCompleteButtonEvent(button, todo) {
     button.addEventListener("click", () => {
       domGenerator.completeButtonClickEvent(button, todo);
+      app.saveItem(todo);
     });
   }
   setTodoClickEvent(todoDiv, todo) {
