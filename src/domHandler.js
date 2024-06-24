@@ -19,6 +19,7 @@ class DomHandler {
     document
       .querySelector("#add-project-button")
       .addEventListener("click", this.showAddProjectEvent);
+    //add project submit event
     this.#addProjectForm.addEventListener("submit", () => {
       const name = this.#addProjectForm.children[1].value;
       this.addProjectFormButtonEvent(name);
@@ -44,6 +45,18 @@ class DomHandler {
       .querySelector("#edit-project-form")
       .addEventListener("submit", () => {
         this.editProjectSubmitEvent();
+      });
+    //check validation add project form
+    document
+      .querySelector("#add-project-form")
+      .children[1].addEventListener("keyup", (e) => {
+        this.projectNameValidationEvent(e.target);
+      });
+    //check validation edit project form
+    document
+      .querySelector("#edit-project-form")
+      .children[1].addEventListener("keyup", (e) => {
+        this.projectNameValidationEvent(e.target);
       });
   }
   static setProjectTabEvent(element) {
@@ -161,6 +174,17 @@ class DomHandler {
       newColorOne,
       newColorTwo
     );
+  }
+  //project form validation for duplicate project names
+  projectNameValidationEvent(textInput) {
+    if (
+      domGenerator.findProjectIndex(textInput.value) !== -1 &&
+      textInput.value !== this.#currentProjectInView.getTitle()
+    ) {
+      textInput.setCustomValidity("Project already exists.");
+    } else {
+      textInput.setCustomValidity("");
+    }
   }
 }
 
