@@ -37,7 +37,7 @@ body > div > div {
 #container {
   height: 100vh;
   display: grid;
-  grid-template-columns: minmax(230px, 350px) 4fr;
+  grid-template-columns: 230px 4fr;
   grid-template-rows: 35px 1fr;
 }
 

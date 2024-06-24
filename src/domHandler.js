@@ -58,6 +58,13 @@ class DomHandler {
       .children[1].addEventListener("keyup", (e) => {
         this.projectNameValidationEvent(e.target);
       });
+    //oustide click on modal event
+    const dialogs = document.querySelectorAll("dialog");
+    for (let i = 0; i < dialogs.length; i++) {
+      dialogs[i].addEventListener("click", (e) => {
+        this.closeModalOnOutsideClickEvent(e.target, dialogs[i], i + 1);
+      });
+    }
   }
   static setProjectTabEvent(element) {
     element.addEventListener("click", () => {
@@ -185,6 +192,10 @@ class DomHandler {
     } else {
       textInput.setCustomValidity("");
     }
+  }
+  //closes the modal on outside click
+  closeModalOnOutsideClickEvent(targetClicked, dialog, modalNum) {
+    if (targetClicked === dialog) screenController.closeModal(modalNum);
   }
 }
 
