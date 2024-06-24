@@ -35,6 +35,7 @@ class DomGenerator {
     const bannerOptionsDiv = document.createElement("div");
     const editIconImg = document.createElement("img");
     const projectIcon = document.createElement("div");
+    const sidebarLabelText = document.createElement("p");
     //add classes/ids
     //give project tab selected styles if all
     if (project.getTitle() === "All") {
@@ -48,7 +49,10 @@ class DomGenerator {
     bannerOptionsDiv.id = "banner-options";
     itemListContainer.id = "item-list";
     //add content
-    sidebarLabel.textContent = project.getTitle();
+    sidebarLabelText.textContent = project.getTitle();
+    // project.getTitle().length > 20
+    //   ? project.getTitle().slice(0, 21)
+    //   : project.getTitle();
     bannerHeader.textContent = project.getTitle();
     nameHeader.textContent = "Name";
     dateHeader.textContent = "Date";
@@ -62,7 +66,7 @@ class DomGenerator {
     DomHandler.setProjectTabEvent(sidebarLabel);
     domHandler.setShowProjectEditFormEvent(editIconImg, project);
     //add to dom
-    sidebarLabel.prepend(projectIcon);
+    sidebarLabel.append(projectIcon, sidebarLabelText);
     if (project.getTitle() === "All" || project.getTitle() === "Today") {
       document.querySelector("#default-project-list").appendChild(sidebarLabel);
     } else {
@@ -373,6 +377,10 @@ class DomGenerator {
         "#edit-project-form"
       ).children[4].children[0].style.display = "inline";
     }
+  }
+  toggleMenu() {
+    document.querySelector("#container").classList.toggle("menu-hidden");
+    console.log(document.querySelector("#container").classList);
   }
 }
 

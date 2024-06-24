@@ -65,6 +65,10 @@ class DomHandler {
         this.closeModalOnOutsideClickEvent(e.target, dialogs[i], i + 1);
       });
     }
+    //hamburger icon click event
+    document.querySelector("#header img").addEventListener("click", () => {
+      domGenerator.toggleMenu();
+    });
   }
   static setProjectTabEvent(element) {
     element.addEventListener("click", () => {
