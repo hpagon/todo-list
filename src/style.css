@@ -436,6 +436,43 @@ dialog form input[value="Delete"] {
 dialog form label {
   font-weight: 600;
 }
+/* pseudo styles */
+#item-list > div > div > * {
+  cursor: default;
+}
+
+#add-button,
+#item-list > div,
+#item-list div button,
+#item-list div img,
+#banner img,
+#header img,
+ul li,
+#sidebar div button,
+dialog form *:not(input[type="text"], label, div, textarea) {
+  cursor: pointer;
+}
+
+#add-button:hover,
+#banner img:hover,
+#header img:hover {
+  scale: 1.05;
+}
+#sidebar div button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--background-color-one);
+}
+
+#item-list > div:active {
+  scale: 0.98;
+}
+
+#add-button:active,
+#banner img:active,
+#sidebar div button:active,
+#header img:active {
+  scale: 0.95;
+}
 
 /* responsive styles */
 @media (max-width: 1000px) {
