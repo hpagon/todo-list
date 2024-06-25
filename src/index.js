@@ -1,7 +1,6 @@
 import "./style.css";
-import DomHandler from "./domHandler";
-import DomGenerator, { domGenerator } from "./domGenerator";
-import ScreenController, { screenController } from "./screenController";
+import { domGenerator } from "./domGenerator";
+import { screenController } from "./screenController";
 import Project from "./project";
 import Todo from "./todo";
 import { format } from "date-fns";
@@ -11,7 +10,6 @@ class App {
   #projectList;
   #itemList;
   constructor() {
-    // localStorage.clear();
     //if no existing data, seed intial data
     if (localStorage.length === 0) {
       this.#projectList = [];
@@ -43,7 +41,7 @@ class App {
         "Complete",
         ""
       );
-      this.updateToday();
+      // this.updateToday();
     } else {
       //load in existing data
       this.#projectList = JSON.parse(localStorage.getItem("projectList"));
@@ -93,7 +91,6 @@ class App {
       id
     );
     this.#projects["All"].addTodo(newTodo);
-    console.log(this.#projects["All"]);
     domGenerator.createItem(newTodo, "All");
     //save to localStorage
     this.saveItem(newTodo);
@@ -195,7 +192,6 @@ class App {
     }
     domGenerator.editProject(oldTitle, project);
     this.saveProject(project);
-    console.log(this.#projects[newTitle].getItems());
   }
   deleteProject(projectName) {
     //delete from localStorage
@@ -239,7 +235,6 @@ class App {
         id: project.getId(),
       })
     );
-    console.log(this.#projectList);
   }
   saveItem(item) {
     if (!localStorage.getItem(item.getId())) {
@@ -259,7 +254,6 @@ class App {
         id: item.getId(),
       })
     );
-    console.log(this.#itemList);
   }
   unsaveProject(projectName) {
     //remove from localStorage
@@ -288,6 +282,5 @@ class App {
   }
 }
 const app = new App();
-console.log(app);
 
 export { app };

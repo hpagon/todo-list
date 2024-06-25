@@ -107,10 +107,7 @@ body {
 }
 
 #sidebar li:hover {
-  /* border: 1px solid black; */
   box-shadow: 0 0 2px black;
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  /* color: var(--background-color-one); */
 }
 
 #sidebar li div {
@@ -156,7 +153,6 @@ body {
 
 /* - banner styles */
 #banner {
-  /* height: 20%; */
   height: 150px;
   display: flex;
   align-items: center;
@@ -192,7 +188,6 @@ body {
   display: flex;
   justify-content: space-between;
   font-weight: 600;
-  /* display: none; */
 }
 
 #list-header div {
@@ -227,10 +222,6 @@ body {
   align-items: center;
   padding: 0px 15px;
   position: relative;
-}
-
-#item-list > div {
-  /* overflow: hidden; */
 }
 
 #item-list > div:nth-last-child(1) {
@@ -273,7 +264,6 @@ body {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  /* border-radius: 7px; */
   background: none;
   outline: none;
   border: none;
@@ -340,10 +330,6 @@ body {
   text-decoration: line-through;
 }
 
-/* #item-list .complete div div:nth-child(2) {
-  background-color: blue;
-} */
-
 #add-button {
   position: fixed;
   left: 95%;
@@ -355,25 +341,19 @@ body {
   font-size: 45px;
   outline: none;
   background-color: var(--background-color-three);
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   text-align: -moz-center;
 }
 
-/* rgb(199, 167, 198) */
 /* modal styles */
 dialog {
   align-self: center;
   margin: auto;
   border: none;
   border-radius: 5px;
-  /* background-color: var(--background-color-one); */
   width: clamp(250px, 40%, 700px);
 }
 
 dialog::backdrop {
-  /* backdrop-filter: blur(3px); */
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -384,10 +364,7 @@ dialog form {
 }
 
 dialog form *:not(label) {
-  /* margin-bottom: 10px; */
-  /* margin-top: 10px; */
   border: none;
-  /* display: inline; */
 }
 
 dialog form input {
@@ -457,10 +434,6 @@ dialog form input[value="Delete"] {
 }
 
 dialog form label {
-  /* background-color: rgba(0, 0, 0, 0.8);
-  color: var(--background-color-one);
-  border-radius: 5px;
-  padding: 1px 20px; */
   font-weight: 600;
 }
 

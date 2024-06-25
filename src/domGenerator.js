@@ -7,8 +7,6 @@ import editIcon from "./edit.svg";
 
 class DomGenerator {
   #projectList;
-  #content = document.querySelector("#content");
-  #project = document.querySelector("#project-container");
   #projectContentList;
   #selectedProjectName;
 
@@ -51,9 +49,6 @@ class DomGenerator {
     itemListContainer.id = "item-list";
     //add content
     sidebarLabelText.textContent = project.getTitle();
-    // project.getTitle().length > 20
-    //   ? project.getTitle().slice(0, 21)
-    //   : project.getTitle();
     bannerHeader.textContent = project.getTitle();
     nameHeader.textContent = "Todo";
     dateHeader.textContent = "Date";
@@ -75,11 +70,7 @@ class DomGenerator {
       this.#projectList.appendChild(sidebarLabel);
     }
     bannerOptionsDiv.append(editIconImg);
-    // if (project.getTitle() === "All" || project.getTitle() === "Today") {
-    //   banner.append(bannerHeader);
-    // } else {
     banner.append(bannerHeader, bannerOptionsDiv);
-    // }
     tableHeaderLeftDiv.append(nameHeader);
     tableHeaderRightDiv.append(dateHeader, priorityHeader, statusHeader);
     listViewTableHeader.append(tableHeaderLeftDiv, tableHeaderRightDiv);
@@ -92,7 +83,6 @@ class DomGenerator {
     this.createProjectDialogOption(project.getTitle());
     //add project to project screen list in screen controller
     screenController.addProjectScreen(projectContainer, project.getTitle());
-    console.log(this.#projectContentList);
   }
   createProjectDialogOption(title) {
     if (title === "All" || title === "Today") return;
@@ -114,7 +104,6 @@ class DomGenerator {
     this.#projectContentList[this.#projectContentList.length - 1].push(
       editFormProjectOption
     );
-    console.log(this.#projectContentList);
   }
   createItem(todo, project) {
     const length = this.#projectContentList.length;
@@ -178,16 +167,7 @@ class DomGenerator {
   //removes item from project in dom
   removeItem(todoId, projectName) {
     this.findAndGetItem(todoId, projectName).remove();
-    console.log("removed");
-    const index = this.findProjectIndex(projectName);
-    if (
-      this.#projectContentList[index][0].children[1].children[1].children
-        .length === 1
-    ) {
-      this.#projectContentList[
-        index
-      ][0].children[1].children[1].classList.remove("not-empty");
-    }
+    this.checkIfEmpty(projectName);
   }
   //edits existing todo dom
   editItem(todo, projectName) {
@@ -210,6 +190,23 @@ class DomGenerator {
       if (project[1].textContent === newProject) {
         project[0].children[1].children[1].appendChild(item);
       }
+    }
+    this.checkIfEmpty(oldProject);
+    this.checkIfEmpty(newProject);
+  }
+  checkIfEmpty(projectName) {
+    const index = this.findProjectIndex(projectName);
+    if (
+      this.#projectContentList[index][0].children[1].children[1].children
+        .length === 1
+    ) {
+      this.#projectContentList[
+        index
+      ][0].children[1].children[1].classList.remove("not-empty");
+    } else {
+      this.#projectContentList[index][0].children[1].children[1].classList.add(
+        "not-empty"
+      );
     }
   }
   clearItems(projectName) {
@@ -397,7 +394,6 @@ class DomGenerator {
   }
   toggleMenu() {
     document.querySelector("#container").classList.toggle("menu-hidden");
-    console.log(document.querySelector("#container").classList);
   }
 }
 

@@ -9,7 +9,6 @@ class DomHandler {
   #addProjectForm;
   #currentTodoInView;
   #currentProjectInView;
-  #currentTodoDivInView;
   constructor() {
     this.#addButton = document.querySelector("#add-button");
     this.#addTodoForm = document.querySelector("#add-todo-form");
@@ -115,7 +114,6 @@ class DomHandler {
       domGenerator.fillInTodoDetails(todo);
       screenController.showModal(3);
       this.#currentTodoInView = todo;
-      this.#currentTodoDivInView = todoDiv;
     });
   }
   editFormSubmitEvent() {
