@@ -341,7 +341,17 @@ body {
   font-size: 45px;
   outline: none;
   background-color: var(--background-color-three);
-  text-align: -moz-center;
+}
+
+/* align text in buttons for firefox */
+@-moz-document url-prefix() {
+  #sidebar div button,
+  #add-button {
+    line-height: 1;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
 }
 
 /* modal styles */
