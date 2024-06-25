@@ -21,7 +21,7 @@
   --background-color-three: #dee2e6;
   --left-indent-one: 10px;
   --left-indent-two: 8px;
-  --checkmark-bg-color: #00b9e3;
+  --checkmark-bg-color: #0292b3;
   font-family: "Roboto";
 }
 
@@ -244,7 +244,7 @@ body {
 }
 
 #item-list > div > div:nth-child(1) p {
-  max-width: 20vw;
+  max-width: 230px;
   overflow: hidden;
   text-wrap: nowrap;
   text-overflow: ellipsis;
@@ -285,6 +285,17 @@ body {
   right: -40px;
   padding-left: 6px;
 }
+
+/* empty message */
+#item-list h3 {
+  font-size: 24px;
+  margin-top: 20%;
+}
+
+#item-list.not-empty h3 {
+  display: none;
+}
+
 /* priority styles */
 
 #item-list div div .low-priority {
@@ -474,6 +485,9 @@ dialog form label {
   #list-header div:nth-child(2) * {
     margin-left: 0px;
   }
+  #add-button {
+    left: 92%;
+  }
 }
 
 @media (max-width: 815px) {
@@ -534,5 +548,14 @@ dialog form label {
   }
   #item-list > div > div:nth-child(2) * {
     font-size: 10px;
+  }
+  #add-button {
+    left: 89%;
+  }
+}
+
+@media (max-width: 450px) {
+  #add-button {
+    left: 82%;
   }
 }

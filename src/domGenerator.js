@@ -36,6 +36,7 @@ class DomGenerator {
     const editIconImg = document.createElement("img");
     const projectIcon = document.createElement("div");
     const sidebarLabelText = document.createElement("p");
+    const emptyMessage = document.createElement("h3");
     //add classes/ids
     //give project tab selected styles if all
     if (project.getTitle() === "All") {
@@ -54,11 +55,12 @@ class DomGenerator {
     //   ? project.getTitle().slice(0, 21)
     //   : project.getTitle();
     bannerHeader.textContent = project.getTitle();
-    nameHeader.textContent = "Name";
+    nameHeader.textContent = "Todo";
     dateHeader.textContent = "Date";
     priorityHeader.textContent = "Priority";
     statusHeader.textContent = "Status";
     editIconImg.src = editIcon;
+    emptyMessage.textContent = "No todos.";
     //add styles
     banner.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
     projectIcon.style.background = `linear-gradient(${project.getColorOne()}, ${project.getColorTwo()})`;
@@ -81,6 +83,7 @@ class DomGenerator {
     tableHeaderLeftDiv.append(nameHeader);
     tableHeaderRightDiv.append(dateHeader, priorityHeader, statusHeader);
     listViewTableHeader.append(tableHeaderLeftDiv, tableHeaderRightDiv);
+    itemListContainer.appendChild(emptyMessage);
     itemsContainer.append(listViewTableHeader, itemListContainer);
     projectContainer.append(banner, itemsContainer);
     //add content to local div storage array
@@ -148,6 +151,10 @@ class DomGenerator {
         this.#projectContentList[i][0].children[1].children[1].appendChild(
           todoDiv
         );
+        //signal that item list is no longer empty
+        this.#projectContentList[i][0].children[1].children[1].classList.add(
+          "not-empty"
+        );
         //trigger events for intialization
         this.setStatusStyles(todoDiv);
         //add events
@@ -171,6 +178,16 @@ class DomGenerator {
   //removes item from project in dom
   removeItem(todoId, projectName) {
     this.findAndGetItem(todoId, projectName).remove();
+    console.log("removed");
+    const index = this.findProjectIndex(projectName);
+    if (
+      this.#projectContentList[index][0].children[1].children[1].children
+        .length === 1
+    ) {
+      this.#projectContentList[
+        index
+      ][0].children[1].children[1].classList.remove("not-empty");
+    }
   }
   //edits existing todo dom
   editItem(todo, projectName) {
